@@ -46,6 +46,9 @@ Open decisions already flagged by name across the architecture books, waiting fo
 | UI language/locale strategy | [UI/UX Design System](../11-ui-ux-design-system/index.md#language) |
 | Frontend unit-test tool | [Testing & QA](../14-testing-qa/index.md#test-types-and-tooling) |
 | Coverage targets/thresholds | [Testing & QA](../14-testing-qa/index.md#release-readiness) |
+| Prompt storage/versioning mechanics and rollback | [AI Development Bible](../06-ai-development-bible/index.md#prompt-library) |
+| Per-task AI model/provider selection strategy and cost controls | [AI Development Bible](../06-ai-development-bible/index.md#model-and-provider-selection) |
+| Human review and escalation roles for AI content | [AI Development Bible](../06-ai-development-bible/index.md#human-review-and-escalation-roles) |
 
 Remove a row once its ADR is accepted and add the ADR to the table above instead.
 
