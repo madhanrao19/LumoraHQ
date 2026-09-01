@@ -51,6 +51,7 @@ nav:
       - "ADR-0003: GitHub Actions Required Checks": 21-adr/0003-github-actions-required-status-checks.md
       - "ADR-0004: GitHub Flow & Commit Conventions": 21-adr/0004-github-flow-branching-and-commit-conventions.md
       - "ADR-0005: API JSON Conventions": 21-adr/0005-laravel-default-api-conventions.md
+      - "ADR-0006: WCAG 2.2 AA Target": 21-adr/0006-wcag-22-aa-accessibility-target.md
   - Playbooks: 22-playbooks/index.md
   - Runbooks: 23-runbooks/index.md
   - Templates:

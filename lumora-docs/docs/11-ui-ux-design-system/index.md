@@ -18,10 +18,9 @@ Per [Software Architecture](../07-software-architecture/index.md#system-overview
 
 ## Accessibility
 
-The [Constitution](../00-constitution/index.md#non-negotiable-principles) principle 7 makes accessibility a default, not an enhancement. This book's working target is **WCAG 2.2 AA** — the standard industry baseline — applied to every component in `lumora-design-system` and to the Filament admin theme alike (content editors and staff need it too, not just students). Concrete acceptance criteria (contrast ratios, keyboard navigation, screen-reader labeling) belong to each component's own spec once built, using this target as the bar.
+The [Constitution](../00-constitution/index.md#non-negotiable-principles) principle 7 makes accessibility a default, not an enhancement. **WCAG 2.2 AA** is the proposed target ([ADR-0006](../21-adr/0006-wcag-22-aa-accessibility-target.md), pending acceptance) — applied to every component in `lumora-design-system` and to the Filament admin theme alike (content editors and staff need it too, not just students). Concrete acceptance criteria (contrast ratios, keyboard navigation, screen-reader labeling) belong to each component's own spec once built, using this target as the bar.
 
-!!! note "Not yet decided"
-    Whether WCAG 2.2 AA is confirmed as a binding target (vs. a stricter or different baseline) should go through an ADR rather than resting on this book alone, since it has real cost implications. Which automated accessibility tool (if any) enforces it in CI is [Testing & QA](../14-testing-qa/index.md#accessibility)'s open question, not this book's.
+Which automated accessibility tool (if any) enforces it in CI remains [Testing & QA](../14-testing-qa/index.md#accessibility)'s open question, not this book's.
 
 ## Language
 
@@ -37,7 +36,6 @@ Also from principle 7 ("different devices and internet conditions"): the design 
 
 ## Not yet decided
 
-- WCAG target ratification (ADR, not just this book).
 - Design token format/tooling (e.g. a token pipeline vs. plain Tailwind config vs. CSS custom properties) and how it feeds both Next.js and Filament.
 - Component library's styling approach (Tailwind, CSS-in-JS, or otherwise) — the root README commits to Next.js + React but not a styling method.
 - UI language/locale strategy and i18n framework.

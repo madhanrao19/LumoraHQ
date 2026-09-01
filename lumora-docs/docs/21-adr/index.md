@@ -6,12 +6,12 @@ An ADR (Architecture Decision Record) captures one binding decision: the problem
 
 ## Status
 
-Version: 1.2 foundation draft. One ADR is accepted, four are proposed and awaiting review; the backlog below tracks decisions the other architecture books have already flagged as open.
+Version: 1.2 foundation draft. One ADR is accepted, five are proposed and awaiting review; the backlog below tracks decisions the other architecture books have already flagged as open.
 
 ## Process
 
 1. Copy the [ADR template](../24-templates/adr-template.md).
-2. Number it sequentially (next is `ADR-0006`).
+2. Number it sequentially (next is `ADR-0007`).
 3. Set `Status: Proposed` and fill in Context, Decision, Alternatives considered, Consequences, and Review date. Add it to [Proposed ADRs](#proposed-adrs) and remove its row from the [decision backlog](#decision-backlog) below — a Proposed ADR replaces the backlog row, since the question is now tracked in one place, not two.
 4. Once agreed, set `Status: Accepted` and move it from Proposed ADRs to [Accepted ADRs](#accepted-adrs). A later decision that replaces one sets the old one's status to `Superseded` rather than deleting it — the record of *why* the old choice was made stays valuable.
 
@@ -31,6 +31,7 @@ Drafted and awaiting review/acceptance — not yet binding.
 | [0003](0003-github-actions-required-status-checks.md) | Use GitHub Actions with Required Status Checks for Lumora Repos | Proposed |
 | [0004](0004-github-flow-branching-and-commit-conventions.md) | Use GitHub Flow with Squash Merges and Conventional Commits | Proposed |
 | [0005](0005-laravel-default-api-conventions.md) | Use Laravel's Default JSON Conventions for the API Envelope, Errors, and Pagination | Proposed |
+| [0006](0006-wcag-22-aa-accessibility-target.md) | Ratify WCAG 2.2 Level AA as the Accessibility Target | Proposed |
 
 ## Decision backlog
 
@@ -48,7 +49,6 @@ Open decisions already flagged by name across the architecture books, waiting fo
 | Secret manager choice | [Infrastructure & DevOps](../13-infrastructure-devops/index.md#secrets) |
 | Backup frequency, retention, and DR targets | [Infrastructure & DevOps](../13-infrastructure-devops/index.md#backups-disaster-recovery) |
 | Azure compute model (App Service / Container Apps / AKS) | [Infrastructure & DevOps](../13-infrastructure-devops/index.md#hosting-cdn-decided) |
-| WCAG target ratification | [UI/UX Design System](../11-ui-ux-design-system/index.md#accessibility) |
 | Design token format/tooling and component styling approach | [UI/UX Design System](../11-ui-ux-design-system/index.md#not-yet-decided) |
 | UI language/locale strategy | [UI/UX Design System](../11-ui-ux-design-system/index.md#language) |
 | Frontend unit-test tool | [Testing & QA](../14-testing-qa/index.md#test-types-and-tooling) |
