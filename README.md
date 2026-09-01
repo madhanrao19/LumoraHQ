@@ -11,7 +11,7 @@ source of truth) plus scaffolding for each application and service.
 | Directory | Status | Purpose |
 |---|---|---|
 | [`lumora-docs/`](lumora-docs/) | ✅ Populated | Single source of truth — MkDocs Material site covering vision, strategy, architecture, curriculum, ADRs, playbooks, and runbooks. |
-| [`lumora-api/`](lumora-api/) | 🟡 Placeholder | Laravel backend API. |
+| [`lumora-api/`](lumora-api/) | 🟢 Scaffolded | Laravel backend API. |
 | [`lumora-academy/`](lumora-academy/) | 🟡 Placeholder | Student/parent learning portal — Next.js + React. |
 | [`lumora-ai/`](lumora-ai/) | 🟡 Placeholder | AI services and the OpenAI/Claude provider abstraction layer. |
 | [`lumora-design-system/`](lumora-design-system/) | 🟡 Placeholder | Shared UI components and design tokens. |
@@ -23,6 +23,7 @@ source of truth) plus scaffolding for each application and service.
 
 > 🟡 **Placeholder** folders currently hold only a `.gitkeep`. Purposes are the
 > intended scope inferred from naming — adjust as each subproject is defined.
+> 🟢 **Scaffolded** folders have a working project skeleton (dependencies installed, tests passing) but no application features yet.
 
 ## Technology stack
 

@@ -6,7 +6,7 @@ Exact versions are tracked **only here** — every other document links to this 
 
 | Layer | Technology | Version |
 |---|---|---|
-| Backend | Laravel | v13.29.0 |
+| Backend | Laravel | v13.30.0 — installed in `lumora-api/composer.lock`, verified directly |
 | Admin Portal | Filament | v5.7.8 |
 | Student/Parent Portal | Next.js + React | Next.js v16.3.4, React v19.2.8 |
 | Database | PostgreSQL | 18 (current minor 18.6) |
@@ -22,10 +22,10 @@ Exact versions are tracked **only here** — every other document links to this 
 | Observability | OpenTelemetry | — |
 | CDN | Cloudflare | — |
 | Hosting | Azure | — |
-| Testing | Pest, PHPUnit, Playwright | Pest v5.1.3, PHPUnit 13.3.2, Playwright v1.62.1 |
+| Testing | Pest, PHPUnit, Playwright | Pest v4.7.8, PHPUnit 12.5.34 (Pest's resolved dependency) — installed in `lumora-api/composer.lock`, verified directly; Playwright v1.62.1 — planning reference, not yet installed |
 | Documentation | MkDocs Material, mkdocs-mermaid2-plugin | 9.7.6, 1.2.3 — installed in `lumora-docs/.venv`, verified directly rather than looked up |
 
-Versions above (except the two Documentation-tooling rows, verified from the local `.venv`) were checked against each project's official release channel as of **2026-09-01** — they're a planning reference, not a lockfile. Once Phase 1 code exists, `composer.lock` / `package-lock.json` become the actual source of truth for what's installed; re-verify before pinning anything in a real `composer.json`/`package.json`, since these move fast enough that "latest" drifts within weeks.
+Versions above marked "verified directly" come from an actual installed lockfile (`lumora-api/composer.lock`, `lumora-docs/.venv`), checked 2026-09-01 — trust these over anything below. Everything else is still a planning reference checked against each project's official release channel on the same date, not yet installed; re-verify before pinning, since these move fast enough that "latest" drifts within weeks. Note Pest v4.7 resolves PHPUnit 12.5.34 as its actual runtime dependency, not the 13.x line — Composer's own dependency resolution is the authority here, not a general web check.
 
 Entries with no version (S3-compatible storage, AI providers, Sentry, PostHog, OpenTelemetry, Cloudflare, Azure) are platforms/services consumed via their own independently-versioned SDKs or with no single "product version" to pin — not an oversight.
 
