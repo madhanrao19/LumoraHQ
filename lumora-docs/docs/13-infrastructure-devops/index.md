@@ -6,7 +6,7 @@ This book defines hosting, environments, CI/CD, secret storage mechanics, backup
 
 ## Status
 
-Version: 1.1 foundation draft. Hosting, CDN, and observability *tools* are already decided ([Technology Stack](../07-software-architecture/technology-stack.md)); environment topology, CI/CD pipeline, secret manager, and backup policy are not — flagged explicitly below rather than assumed.
+Version: 1.2 foundation draft. Hosting, CDN, and observability *tools* are already decided ([Technology Stack](../07-software-architecture/technology-stack.md)); CI/CD pipeline, secret manager, and environment topology now have proposed ADRs awaiting acceptance; Azure compute model and backup policy are still fully open — flagged explicitly below rather than assumed.
 
 ## Hosting & CDN (decided)
 
@@ -15,14 +15,11 @@ Version: 1.1 foundation draft. Hosting, CDN, and observability *tools* are alrea
 
 ## CI/CD
 
-GitHub Actions is already in use in this monorepo — `.github/workflows/docs.yml` builds and strict-checks the docs site on every push/PR to `main`. That's a working precedent, not yet a formal decision for application code:
-
-!!! note "Not yet decided"
-    Whether `lumora-api`/`lumora-academy` CI reuses GitHub Actions (the existing precedent) or something else, and whether CI **blocks** merges on failing tests versus only reporting status ([Testing & QA](../14-testing-qa/index.md#release-readiness) defers this exact question here). Decide before Phase 1 code lands, since retrofitting a blocking gate after merges have been happening unguarded is disruptive.
+GitHub Actions is already in use in this monorepo — `.github/workflows/docs.yml` builds and strict-checks the docs site on every push/PR to `main`. [ADR-0003](../21-adr/0003-github-actions-required-status-checks.md) (pending acceptance) proposes continuing that precedent for application-repo CI, made **blocking** on PRs to `main` rather than advisory-only.
 
 ## Environments
 
-Not yet decided: how many environments exist (e.g. local/staging/production), how code is promoted between them, and what differs between them (data, secrets, AI provider usage — e.g. should staging hit real AI providers or a stub). This is fully open and should be resolved via ADR before the first deployable Phase 1 feature exists, since [API Architecture](../10-api-architecture/index.md) and [AI Development Bible](../06-ai-development-bible/index.md) both assume *some* non-production environment exists to test against.
+Three environments — local, staging, production — with staging using real (but separately-keyed) AI provider credentials and local using a stub. See [ADR-0008](../21-adr/0008-three-environment-topology.md) (pending acceptance) for the promotion flow and full reasoning.
 
 ## Secrets
 
@@ -57,8 +54,6 @@ Laravel Reverb is used "where appropriate," not by default ([Software Architectu
 ## Not yet decided (summary)
 
 - Azure compute model (App Service vs. Container Apps vs. AKS).
-- Application CI/CD pipeline and whether it blocks merges.
-- Environment topology (count, promotion flow, what differs per environment).
 - Backup frequency, retention, and DR targets for PostgreSQL and S3-compatible storage.
 - Alerting/on-call policy for Sentry/OpenTelemetry signals.
 
