@@ -6,11 +6,11 @@ This book defines the editorial lifecycle for content — human-authored and AI-
 
 ## Status
 
-Version: 1.1 foundation draft. States the lifecycle and the copyright principle; reviewer roles and the technical RAG-indexing trigger are flagged open.
+Version: 1.3 foundation draft. States the lifecycle and the copyright principle; the RAG-indexing trigger is decided via ADR. Reviewer roles are still open.
 
 ## Content lifecycle
 
-Draft → review → approve → publish — the same draft/published distinction [API Architecture](../10-api-architecture/index.md#the-ai-gateway-boundary) already established for AI-generated content applies here as the general rule for **all** curriculum content, not just AI-drafted content. Nothing is publishable, and nothing is eligible for [RAG indexing](../06-ai-development-bible/index.md#rag-source-boundary), until it clears this same bar.
+Draft → review → approve → publish — the same draft/published distinction [API Architecture](../10-api-architecture/index.md#the-ai-gateway-boundary) already established for AI-generated content applies here as the general rule for **all** curriculum content, not just AI-drafted content. Nothing is publishable, and nothing is eligible for [RAG indexing](../06-ai-development-bible/index.md#rag-source-boundary), until it clears this same bar. [ADR-0022](../21-adr/0022-rag-indexing-on-publish.md) proposes that publishing triggers RAG indexing automatically, at that same moment — with a per-item opt-out for the rare published item that shouldn't be retrieved as knowledge.
 
 ## Copyright and originality
 
@@ -19,7 +19,6 @@ Per repository convention (`lumora-docs/CLAUDE.md`): copyrighted textbooks, work
 ## Not yet decided
 
 - **Reviewer roles** — who approves content before publish. Already tracked as an open item in [AI Development Bible](../06-ai-development-bible/index.md#human-review-and-escalation-roles) and [AI Agents Handbook](../16-ai-agents-handbook/index.md#not-yet-decided); not duplicated here.
-- **RAG-indexing trigger mechanics** — whether content becomes RAG-eligible automatically on publish or requires a separate flag. This is a new, distinct mechanic question from the reviewer-roles item above.
 
 ## Scope boundaries
 

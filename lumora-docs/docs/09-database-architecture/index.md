@@ -8,7 +8,7 @@ It does not define actual table schemas yet — see [Status](#status).
 
 ## Status
 
-Version: 1.2 foundation draft. Establishes data-store roles and ownership principles ahead of Phase 1. No tables are designed yet; that starts once a module's feature work begins, and each schema should be reviewed against this book as it's built. Multi-tenancy now has a proposed ADR; data classification and retention policy are still open.
+Version: 1.4 foundation draft. Establishes data-store roles and ownership principles ahead of Phase 1. No tables are designed yet; that starts once a module's feature work begins, and each schema should be reviewed against this book as it's built. Multi-tenancy, data classification, and retention policy now all have proposed ADRs.
 
 ## Data stores and their roles
 
@@ -54,13 +54,12 @@ Directly from the [Constitution](../00-constitution/index.md#non-negotiable-prin
 
 - Collect the minimum personal data needed for each feature — don't add a column "in case it's useful later."
 - Personal data belongs to Identity & Access; other modules reference a user by ID rather than copying personal fields (name, email, date of birth) into their own tables.
-- Every table holding personal or child-related data should be identifiable as such (flagged in migration comments or a data classification doc) so it can be located for access, export, or deletion requests.
+- Every table holding personal or child-related data is identifiable as such via a migration-comment convention — [ADR-0020](../21-adr/0020-four-tier-data-classification.md) proposes a four-tier scheme (Public/Internal/Personal/Sensitive-Child) so tables can be located for access, export, or deletion requests.
 - Detailed retention, deletion, and compliance rules are owned by [Security & Privacy](../12-security-privacy/index.md), not this book — this book only ensures the schema is *shaped* to support them.
 
-**Multi-tenancy:** [ADR-0017](../21-adr/0017-single-tenant-schema-defer-multi-tenancy.md) (pending acceptance) proposes staying single-tenant/shared-schema through Phase 1 and Phase 2, with the actual multi-tenancy pattern for Phase 3 "School edition" chosen then, informed by real requirements — not decided now.
+**Multi-tenancy:** [ADR-0017](../21-adr/0017-single-tenant-schema-defer-multi-tenancy.md) proposes staying single-tenant/shared-schema through Phase 1 and Phase 2, with the actual multi-tenancy pattern for Phase 3 "School edition" chosen then, informed by real requirements — not decided now.
 
-!!! note "Not yet decided"
-    Field-level data classification and retention/archival policy are still open. Resolve as an ADR — see [Security & Privacy](../12-security-privacy/index.md#not-yet-decided).
+**Retention:** [ADR-0029](../21-adr/0029-malaysia-pdpa-applicable-regulation.md) confirms Malaysia's PDPA as the applicable regulation and applies its purpose-based Retention Principle — data is kept while the associated account is active, then purged within a bounded window after deletion, rather than a fixed statutory period PDPA doesn't specify.
 
 ## Scope boundaries
 

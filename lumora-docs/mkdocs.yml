@@ -64,6 +64,17 @@ nav:
       - "ADR-0016: AI Model Tiering Strategy": 21-adr/0016-ai-model-tiering-strategy.md
       - "ADR-0017: Single-Tenant Schema": 21-adr/0017-single-tenant-schema-defer-multi-tenancy.md
       - "ADR-0018: Role Model (Native Policies)": 21-adr/0018-native-policies-role-model.md
+      - "ADR-0019: Parent-Child Account Model": 21-adr/0019-parent-initiated-child-accounts.md
+      - "ADR-0020: Data Classification Scheme": 21-adr/0020-four-tier-data-classification.md
+      - "ADR-0021: Audit Log Access Model": 21-adr/0021-audit-log-access-model.md
+      - "ADR-0022: RAG Indexing on Publish": 21-adr/0022-rag-indexing-on-publish.md
+      - "ADR-0023: Tutor Escalation Mechanism": 21-adr/0023-tutor-realtime-escalation-mechanism.md
+      - "ADR-0024: Curriculum Content Versioning": 21-adr/0024-curriculum-content-versioning.md
+      - "ADR-0025: Analytics Event Categories": 21-adr/0025-analytics-event-categories-default-anonymized.md
+      - "ADR-0026: React Native + Expo Mobile": 21-adr/0026-react-native-expo-mobile.md
+      - "ADR-0027: Shared Claude Code Plugin": 21-adr/0027-shared-claude-code-plugin-across-repos.md
+      - "ADR-0028: Tutor Scope via RAG Grounding": 21-adr/0028-tutor-scope-defined-by-rag-grounding.md
+      - "ADR-0029: Malaysia PDPA Regulation": 21-adr/0029-malaysia-pdpa-applicable-regulation.md
   - Playbooks: 22-playbooks/index.md
   - Runbooks: 23-runbooks/index.md
   - Templates:

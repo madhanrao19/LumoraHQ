@@ -6,21 +6,21 @@ This book defines Lumora Academy's security and privacy standards: authenticatio
 
 ## Status
 
-Version: 1.2 foundation draft. Establishes principles in each category below; the role/permission model now has a proposed ADR. Several other concrete policies are still flagged as not yet decided rather than assumed — see [Not yet decided](#not-yet-decided).
+Version: 1.6 foundation draft. Establishes principles in each category below; the role/permission model, parent-child account model, data classification scheme, audit log access model, applicable regulation, and audit retention policy now all have proposed ADRs.
 
 ## Authentication & authorization
 
 - Authentication uses Laravel Sanctum ([API Architecture](../10-api-architecture/index.md#authentication)); the cookie-vs-token decision is tracked there, not duplicated here.
 - Roles and permissions are owned by the Identity & Access module ([Software Architecture](../07-software-architecture/index.md#primary-modules-working-draft)). Authorization is checked at the module boundary — a module verifies the caller's permission itself rather than trusting that the API layer already checked, so the same rule holds whether a call comes from the API, from Filament, or from another module.
-- **Role set:** Student, Parent, Admin for Phase 1, Teacher added in Phase 3 — authorized via native Laravel Policies rather than a permission package, so Filament's admin authorization comes from the same mechanism ([ADR-0018](../21-adr/0018-native-policies-role-model.md), pending acceptance).
+- **Role set:** Student, Parent, Admin for Phase 1, Teacher added in Phase 3 — authorized via native Laravel Policies rather than a permission package, so Filament's admin authorization comes from the same mechanism ([ADR-0018](../21-adr/0018-native-policies-role-model.md)).
 
 ## Privacy & data protection
 
 Directly from the [Constitution](../00-constitution/index.md#non-negotiable-principles) principle 5 (privacy is a product feature — minimal, purposeful, protected, explainable data collection) and principle 4 (child safety is mandatory):
 
 - Personal data is minimized and owned by Identity & Access; other modules reference a person by ID rather than copying their personal fields ([Database Architecture](../09-database-architecture/index.md#privacy-and-child-safety-in-schema-design)).
-- Parents and authorized staff must have appropriate visibility into a child's AI interactions ([AI Safety Principles](../06-ai-development-bible/ai-safety-principles.md), requirement 6). This is a real, already-decided requirement — it means the Identity & Access data model needs a parent-child account relationship, not just individual accounts. That relationship model itself is not yet designed (see below).
-- A formal data classification scheme (e.g. which fields count as personal, which count as sensitive/child-related) does not exist yet. [Database Architecture](../09-database-architecture/index.md) flagged this as open; this book is where it should be defined once decided.
+- Parents and authorized staff must have appropriate visibility into a child's AI interactions ([AI Safety Principles](../06-ai-development-bible/ai-safety-principles.md), requirement 6). [ADR-0019](../21-adr/0019-parent-initiated-child-accounts.md) proposes parent-initiated account creation with a many-to-many parent-student link table, so this requirement is satisfied structurally — no child account can exist without a linked, visible parent.
+- **Data classification:** [ADR-0020](../21-adr/0020-four-tier-data-classification.md) proposes four tiers — Public, Internal, Personal, Sensitive/Child — with Sensitive/Child defined as a bright-line test (Personal *and* about a specific student), recorded via a migration-comment convention rather than new tooling.
 
 ## Secrets management
 
@@ -36,17 +36,12 @@ Directly from the [Constitution](../00-constitution/index.md#non-negotiable-prin
 
 ## Audit & accountability
 
-- Every AI Gateway request/response is logged for audit ([AI Safety Principles](../06-ai-development-bible/ai-safety-principles.md), requirement 3; restated as an API requirement in [API Architecture](../10-api-architecture/index.md#the-ai-gateway-boundary)). Who can read that log, and how long it's retained, is not yet decided.
+- Every AI Gateway request/response is logged for audit ([AI Safety Principles](../06-ai-development-bible/ai-safety-principles.md), requirement 3; restated as an API requirement in [API Architecture](../10-api-architecture/index.md#the-ai-gateway-boundary)). [ADR-0021](../21-adr/0021-audit-log-access-model.md) decides who can read it — Admin fully, Parent scoped to their own linked student via [ADR-0019](../21-adr/0019-parent-initiated-child-accounts.md), Student not directly. Retention follows [ADR-0029](../21-adr/0029-malaysia-pdpa-applicable-regulation.md)'s purpose-based principle (retain while the account is active, purge within a bounded window after deletion) rather than a fixed period — PDPA itself doesn't specify one.
 - Security-sensitive actions beyond AI interactions — role changes, data export, data deletion, admin overrides — should be logged with the same rigor, even though only the AI audit trail is currently a stated requirement.
 
-## Not yet decided
+## Applicable regulation
 
-- **Applicable privacy regulation(s).** Lumora Academy handles children's data, references Malaysian curricula, and is hosted on Azure — which specific regulatory regime(s) apply (and therefore what consent, age-gating, and data-residency rules follow) has not been decided. This affects onboarding and consent flow design directly, so resolve it before Phase 1 authentication work, not after.
-- **Data classification scheme** — which fields/tables count as personal vs. sensitive/child-related (referenced above and in Database Architecture).
-- **Parent-child account relationship model** — required by AI Safety Principles requirement 6, not yet designed. (The *authorization mechanism* that will enforce it is decided — [ADR-0018](../21-adr/0018-native-policies-role-model.md) — but the data model itself is separate and still open.)
-- **Audit log access and retention policy** — who can read the AI audit trail and for how long.
-
-Each of these should be resolved as an ADR, not decided implicitly in code — see [Development Standards](../08-development-standards/index.md#feature-workflow).
+[ADR-0029](../21-adr/0029-malaysia-pdpa-applicable-regulation.md) confirms Malaysia's PDPA (2010, as amended 2024) as the applicable regime, given Lumora Academy's Malaysia-only target market — resolving what had been the single most consequential open item in this book, since it also unblocked audit and analytics retention. This isn't a substitute for formal legal counsel review before Phase 1 launch, and needs revisiting if the target market ever expands beyond Malaysia — see the ADR for both caveats.
 
 ## Scope boundaries
 

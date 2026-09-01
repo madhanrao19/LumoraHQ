@@ -6,7 +6,7 @@ This book defines how AI is built into Lumora Academy: provider abstraction in p
 
 ## Status
 
-Version: 1.3 foundation draft. Establishes governance principles; prompt storage/versioning and model/provider selection strategy now have proposed ADRs; human review roles are still open.
+Version: 1.4 foundation draft. Establishes governance principles; prompt storage/versioning and model/provider selection strategy are decided via ADR; human review roles are still open.
 
 ## Relationship to Safety Principles
 
@@ -26,7 +26,7 @@ Prompts are a governed asset, not inline strings scattered through feature code:
 - Prompts live centrally (owned by the AI Gateway module) so they can be versioned and reviewed independently of the feature code that uses them.
 - A prompt change that affects production content-facing behavior gets the same review rigor as a content or code change — it's not exempt just because it's "just a prompt."
 
-**Storage and rollback:** [ADR-0015](../21-adr/0015-prompts-as-version-controlled-code.md) (pending acceptance) proposes prompts as version-controlled files, not database rows — changed only through the normal PR/CI/deploy pipeline, so every prompt change gets the same review and test gate as any other code change. Rollback is a `git revert`.
+**Storage and rollback:** [ADR-0015](../21-adr/0015-prompts-as-version-controlled-code.md) proposes prompts as version-controlled files, not database rows — changed only through the normal PR/CI/deploy pipeline, so every prompt change gets the same review and test gate as any other code change. Rollback is a `git revert`.
 
 ## RAG source boundary
 
@@ -34,7 +34,7 @@ Safety Principles requirement 1 ("AI should answer from approved Lumora content 
 
 ## Model and provider selection
 
-OpenAI and Claude are the decided providers ([Technology Stack](../07-software-architecture/technology-stack.md)). [ADR-0016](../21-adr/0016-ai-model-tiering-strategy.md) (pending acceptance) proposes routing by capability tier (economical / higher-quality / safety-classification) rather than pinning a specific model name — durable as models rotate, since which model fills each tier is Gateway configuration, not an architecture decision. Its task-to-tier starting map is explicitly a hypothesis to validate once Phase 2 has real usage data, not a permanent rule.
+OpenAI and Claude are the decided providers ([Technology Stack](../07-software-architecture/technology-stack.md)). [ADR-0016](../21-adr/0016-ai-model-tiering-strategy.md) proposes routing by capability tier (economical / higher-quality / safety-classification) rather than pinning a specific model name — durable as models rotate, since which model fills each tier is Gateway configuration, not an architecture decision. Its task-to-tier starting map is explicitly a hypothesis to validate once Phase 2 has real usage data, not a permanent rule.
 
 ## Human review and escalation roles
 

@@ -6,7 +6,7 @@ This book defines Lumora Academy's **product-facing AI agents** — the AI featu
 
 ## Status
 
-Version: 1.1 foundation draft. Names the working agent catalog from the Roadmap and draws out one important distinction (real-time vs. content-drafting safety model) that the safety principles don't spell out on their own.
+Version: 1.4 foundation draft. Names the working agent catalog from the Roadmap and draws out one important distinction (real-time vs. content-drafting safety model) that the safety principles don't spell out on their own. The Tutor's escalation mechanism and topical scope are decided via ADR; non-curriculum conversation policy and specific safety-trigger content are still open.
 
 ## Not to be confused with
 
@@ -38,8 +38,8 @@ Treating the Tutor as if it needs the same pre-publish review as a drafted lesso
 ## Not yet decided
 
 - The full agent list beyond these three (the catalog above is a working draft, not exhaustive).
-- The AI Tutor's conversational scope — which subjects/question types it engages with versus redirects — and its specific real-time escalation triggers. This is distinct from the general "who reviews AI content" question already tracked in the [AI Development Bible](../06-ai-development-bible/index.md#human-review-and-escalation-roles) backlog item, since the Tutor's escalation is real-time, not a review queue.
-- Tutor pedagogical behavior (tone, how it handles a student getting something wrong, when it prompts vs. tells) belongs to [Educational Framework](../04-educational-framework/index.md) (not yet written), not this book.
+- Topical scope is resolved — [ADR-0028](../21-adr/0028-tutor-scope-defined-by-rag-grounding.md) defines it by RAG groundability rather than a curated subject list. Still open: whether the Tutor engages in genuinely non-curriculum conversation at all, and the *specific* classifier categories/thresholds that trigger a block, redirect, or escalation. The escalation *mechanism* itself is decided ([ADR-0023](../21-adr/0023-tutor-realtime-escalation-mechanism.md)) — but what actually counts as unsafe content requires safety/policy expertise this book doesn't have. This is distinct from the general "who reviews AI content" question tracked in [AI Development Bible](../06-ai-development-bible/index.md#human-review-and-escalation-roles).
+- Tutor pedagogical behavior (tone, how it handles a student getting something wrong, when it prompts vs. tells) belongs to [Educational Framework](../04-educational-framework/index.md), not this book.
 
 ## Scope boundaries
 
@@ -49,8 +49,9 @@ Treating the Tutor as if it needs the same pre-publish review as a drafted lesso
 | Provider abstraction, prompt library, model selection | [AI Development Bible](../06-ai-development-bible/index.md) |
 | AI Gateway module and enforcement | [Software Architecture](../07-software-architecture/index.md) |
 | AI Gateway API contract | [API Architecture](../10-api-architecture/index.md#the-ai-gateway-boundary) |
-| Tutor pedagogy, tone, teaching behavior | [Educational Framework](../04-educational-framework/index.md) *(not yet written)* |
-| Claude Code development-tooling agents (different scope) | [Claude Code Operating System](../15-claude-code-operating-system/index.md) *(not yet written)* |
+| Tutor pedagogy, tone, teaching behavior | [Educational Framework](../04-educational-framework/index.md) |
+| Real-time escalation mechanism | [ADR-0023](../21-adr/0023-tutor-realtime-escalation-mechanism.md) |
+| Claude Code development-tooling agents (different scope) | [Claude Code Operating System](../15-claude-code-operating-system/index.md) |
 
 ## Related documents
 

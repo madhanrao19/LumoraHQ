@@ -6,14 +6,16 @@ This book defines how curriculum content is structured and sourced — the conte
 
 ## Status
 
-Version: 1.1 foundation draft. Structural shape is derived from the Roadmap's named engines; the actual taxonomy (subjects, grade bands) is not yet decided.
+Version: 1.3 foundation draft. Structural shape is derived from the Roadmap's named engines; content versioning is decided via ADR. The actual taxonomy (subjects, grade bands) is still not decided.
 
 ## Working structure
 
 The [Roadmap](../25-roadmap/index.md) Phase 1 names a Curriculum Engine, Lesson Engine, Question Bank, and Assessment Engine, which implies a minimal hierarchy: **subject → level/grade → topic → lesson → assessment item**. This is a working structure to build against, not a ratified taxonomy.
 
+**Versioning:** [ADR-0024](../21-adr/0024-curriculum-content-versioning.md) proposes editing published content supersedes rather than overwrites it — the same pattern the ADR process itself uses — keeping history for safety/audit review and staying automatically synced with [ADR-0022](../21-adr/0022-rag-indexing-on-publish.md)'s RAG-indexing trigger.
+
 !!! note "Not yet decided"
-    The actual subject list, grade-band structure, and how curriculum content versions over time as reference curricula change. Resolve as an ADR before Phase 1 curriculum-engine work locks in a schema.
+    The actual subject list and grade-band structure. Resolve as an ADR before Phase 1 curriculum-engine work locks in a schema.
 
 ## Alignment, not replication
 

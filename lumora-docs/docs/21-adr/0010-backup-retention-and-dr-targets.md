@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed
+Accepted
 
 ## Context
 
@@ -14,7 +14,7 @@ Verified before writing this (2026-09-01), Azure Database for PostgreSQL Flexibl
 
 1. **Enable PITR with the maximum 35-day retention window**, not the 7-day default — free at this storage scale, and a meaningfully longer window to notice and recover from a slow-discovered problem (a bad migration, an accidental deletion) matters more on a platform holding child data than the cost difference, which is zero.
 2. **Use zone-redundant backup storage** (Azure's automatic default where the region supports availability zones) — protects against a single-zone failure without committing to cross-region complexity.
-3. **Do not adopt geo-redundant backup or Long-Term Retention yet.** Both are real, available options — deliberately deferred, not overlooked. Geo-redundant backup requires committing to a deployment region and its paired region, which no document in this repository has chosen yet. LTR is heavy compliance tooling that should follow an actual regulatory requirement, not precede one — [Security & Privacy](../12-security-privacy/index.md#not-yet-decided)'s "applicable privacy regulation(s)" item is still open.
+3. **Do not adopt geo-redundant backup or Long-Term Retention yet.** Both are real, available options — deliberately deferred, not overlooked. Geo-redundant backup requires committing to a deployment region and its paired region, which no document in this repository has chosen yet. LTR is heavy compliance tooling that should follow an actual regulatory requirement, not precede one — [Security & Privacy](../12-security-privacy/index.md#applicable-regulation)'s "applicable privacy regulation(s)" item is still open.
 4. **S3-compatible storage relies on the storage service's native soft-delete and versioning**, not a separate backup pipeline — proportionate protection against accidental deletion/overwrite at this stage, not a full disaster-recovery system for content that doesn't yet have real user volume.
 5. **Accept Azure's documented RTO/RPO as-is for now**: RPO up to ~5 minutes (continuous WAL-based recovery), RTO "a few minutes up to a few hours" depending on data volume — not hardened into a specific SLA, since no uptime commitment to end users exists yet.
 
@@ -39,4 +39,4 @@ Trade-offs:
 
 ## Review date
 
-Revisit once (a) an actual Azure deployment region is chosen, or (b) [Security & Privacy](../12-security-privacy/index.md#not-yet-decided)'s "applicable privacy regulation(s)" item is resolved — either could independently justify adding geo-redundant backup and/or Long-Term Retention.
+Revisit once (a) an actual Azure deployment region is chosen, or (b) [Security & Privacy](../12-security-privacy/index.md#applicable-regulation)'s "applicable privacy regulation(s)" item is resolved — either could independently justify adding geo-redundant backup and/or Long-Term Retention.

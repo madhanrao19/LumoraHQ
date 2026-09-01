@@ -2,11 +2,11 @@
 
 ## Status
 
-Proposed
+Accepted
 
 ## Context
 
-[Security & Privacy](../12-security-privacy/index.md#not-yet-decided) flagged the role/permission model as open, noting the role set is "not yet defined beyond what the Roadmap implies (student, parent, admin at minimum for Phase 1; teacher for Phase 3's 'Teacher tools')." This ADR decides the role set and the authorization *mechanism* — it does not decide the parent-child account relationship data model, which stays a separate open item ([Security & Privacy](../12-security-privacy/index.md#not-yet-decided)).
+[Security & Privacy](../12-security-privacy/index.md#applicable-regulation) flagged the role/permission model as open, noting the role set is "not yet defined beyond what the Roadmap implies (student, parent, admin at minimum for Phase 1; teacher for Phase 3's 'Teacher tools')." This ADR decides the role set and the authorization *mechanism* — it does not decide the parent-child account relationship data model, which stays a separate open item ([Security & Privacy](../12-security-privacy/index.md#applicable-regulation)).
 
 ## Decision
 

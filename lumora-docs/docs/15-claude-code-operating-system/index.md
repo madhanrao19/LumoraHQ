@@ -6,7 +6,7 @@ This book documents how Claude Code is configured and used to build and maintain
 
 ## Status
 
-Version: 1.1 foundation draft. Documents what's actually configured in `lumora-docs/.claude/` today as a living reference, and flags whether other Lumora repos should adopt the same setup.
+Version: 1.3 foundation draft. Documents what's actually configured in `lumora-docs/.claude/` today as a living reference. Whether other Lumora repos adopt this setup is decided via ADR.
 
 ## Custom subagents
 
@@ -43,8 +43,7 @@ Defined in `.claude/commands/`:
 
 `lumora-docs/CLAUDE.md` sets the binding rules for any Claude Code session editing this repository (naming conventions, copyright discipline, verification requirement). It's referenced here, not duplicated — see the file itself for the current rules.
 
-!!! note "Not yet decided"
-    Whether other Lumora repos (`lumora-api`, `lumora-academy`, etc. — all currently empty placeholders) get their own tailored `.claude/agents`/`.claude/commands`, or share this repo's setup once they're scaffolded.
+[ADR-0027](../21-adr/0027-shared-claude-code-plugin-across-repos.md) proposes packaging this setup as a shared plugin — the same mechanism already used for the `ponytail` plugin in this repository — installed into `lumora-api`, `lumora-academy`, and other Lumora repos once scaffolded, rather than each repo building or copying its own.
 
 ## Scope boundaries
 
