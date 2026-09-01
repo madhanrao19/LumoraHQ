@@ -6,7 +6,7 @@ This book defines hosting, environments, CI/CD, secret storage mechanics, backup
 
 ## Status
 
-Version: 1.3 foundation draft. Hosting, CDN, and observability *tools* are already decided ([Technology Stack](../07-software-architecture/technology-stack.md)); CI/CD pipeline, secret manager, environment topology, and Azure compute model now have proposed ADRs awaiting acceptance; backup policy is still fully open — flagged explicitly below rather than assumed.
+Version: 1.4 foundation draft. Hosting, CDN, and observability *tools* are already decided ([Technology Stack](../07-software-architecture/technology-stack.md)); CI/CD pipeline, secret manager, environment topology, Azure compute model, and backup/DR targets now all have proposed ADRs awaiting acceptance; only alerting/on-call policy remains fully open.
 
 ## Hosting & CDN (decided)
 
@@ -27,13 +27,11 @@ Three environments — local, staging, production — with staging using real (b
 
 ## Backups & disaster recovery
 
-Not yet decided in detail, but scope is already narrower than it looks, per [Database Architecture](../09-database-architecture/index.md#data-stores-and-their-roles):
+Scope is narrower than it looks, per [Database Architecture](../09-database-architecture/index.md#data-stores-and-their-roles):
 
-- **PostgreSQL is the only store that needs a real backup/DR policy** — it's the sole source of truth.
+- **PostgreSQL is the only store that needs a real backup/DR policy** — it's the sole source of truth. [ADR-0010](../21-adr/0010-backup-retention-and-dr-targets.md) (pending acceptance) proposes 35-day point-in-time recovery with zone-redundant storage, deferring geo-redundant backup and long-term retention until a deployment region and the applicable privacy regulation are both decided.
 - Redis (cache/queue) and Meilisearch (derived search index) are explicitly disposable/reconstructable — they don't need backup, only a rebuild path.
-- S3-compatible storage (files/media) needs its own retention policy, since it holds content PostgreSQL only references by key, not the content itself.
-
-Backup frequency, retention window, and DR recovery-time targets are not yet decided.
+- S3-compatible storage (files/media) relies on the storage service's native soft-delete and versioning per ADR-0010, rather than a separate backup pipeline.
 
 ## Observability (decided tools, undecided policy)
 
@@ -53,7 +51,6 @@ Laravel Reverb is used "where appropriate," not by default ([Software Architectu
 
 ## Not yet decided (summary)
 
-- Backup frequency, retention, and DR targets for PostgreSQL and S3-compatible storage.
 - Alerting/on-call policy for Sentry/OpenTelemetry signals.
 
 Each belongs in an ADR when decided, per the [Development Standards](../08-development-standards/index.md#feature-workflow) feature workflow — not settled implicitly by whatever the first deploy happens to do.
