@@ -6,12 +6,12 @@ This book defines hosting, environments, CI/CD, secret storage mechanics, backup
 
 ## Status
 
-Version: 1.2 foundation draft. Hosting, CDN, and observability *tools* are already decided ([Technology Stack](../07-software-architecture/technology-stack.md)); CI/CD pipeline, secret manager, and environment topology now have proposed ADRs awaiting acceptance; Azure compute model and backup policy are still fully open — flagged explicitly below rather than assumed.
+Version: 1.3 foundation draft. Hosting, CDN, and observability *tools* are already decided ([Technology Stack](../07-software-architecture/technology-stack.md)); CI/CD pipeline, secret manager, environment topology, and Azure compute model now have proposed ADRs awaiting acceptance; backup policy is still fully open — flagged explicitly below rather than assumed.
 
 ## Hosting & CDN (decided)
 
 - **Hosting:** Azure. **CDN:** Cloudflare.
-- Per the [Constitution](../00-constitution/index.md#non-negotiable-principles) principle 10 (minimize vendor lock-in): prefer standard, portable services within Azure over Azure-proprietary APIs where a practical choice exists. Managed PostgreSQL/Redis are fine — they're still the standard protocol underneath, so the application isn't locked to Azure's implementation. Exactly which Azure compute model (App Service, Container Apps, AKS, etc.) is not yet chosen.
+- Per the [Constitution](../00-constitution/index.md#non-negotiable-principles) principle 10 (minimize vendor lock-in): prefer standard, portable services within Azure over Azure-proprietary APIs where a practical choice exists. Managed PostgreSQL/Redis are fine — they're still the standard protocol underneath, so the application isn't locked to Azure's implementation. **Compute model:** Azure App Service on Linux is the proposed choice ([ADR-0009](../21-adr/0009-azure-app-service-compute-model.md), pending acceptance) — a single App Service deployment for the modular monolith, not Container Apps or AKS, until the monolith is actually split.
 
 ## CI/CD
 
@@ -53,7 +53,6 @@ Laravel Reverb is used "where appropriate," not by default ([Software Architectu
 
 ## Not yet decided (summary)
 
-- Azure compute model (App Service vs. Container Apps vs. AKS).
 - Backup frequency, retention, and DR targets for PostgreSQL and S3-compatible storage.
 - Alerting/on-call policy for Sentry/OpenTelemetry signals.
 

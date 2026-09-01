@@ -6,12 +6,12 @@ An ADR (Architecture Decision Record) captures one binding decision: the problem
 
 ## Status
 
-Version: 1.2 foundation draft. One ADR is accepted, seven are proposed and awaiting review; the backlog below tracks decisions the other architecture books have already flagged as open.
+Version: 1.2 foundation draft. One ADR is accepted, eight are proposed and awaiting review; the backlog below tracks decisions the other architecture books have already flagged as open.
 
 ## Process
 
 1. Copy the [ADR template](../24-templates/adr-template.md).
-2. Number it sequentially (next is `ADR-0009`).
+2. Number it sequentially (next is `ADR-0010`).
 3. Set `Status: Proposed` and fill in Context, Decision, Alternatives considered, Consequences, and Review date. Add it to [Proposed ADRs](#proposed-adrs) and remove its row from the [decision backlog](#decision-backlog) below — a Proposed ADR replaces the backlog row, since the question is now tracked in one place, not two.
 4. Once agreed, set `Status: Accepted` and move it from Proposed ADRs to [Accepted ADRs](#accepted-adrs). A later decision that replaces one sets the old one's status to `Superseded` rather than deleting it — the record of *why* the old choice was made stays valuable.
 
@@ -34,6 +34,7 @@ Drafted and awaiting review/acceptance — not yet binding.
 | [0006](0006-wcag-22-aa-accessibility-target.md) | Ratify WCAG 2.2 Level AA as the Accessibility Target | Proposed |
 | [0007](0007-azure-key-vault-secret-manager.md) | Use Azure Key Vault as the Secret Manager | Proposed |
 | [0008](0008-three-environment-topology.md) | Three Environments — Local, Staging, Production | Proposed |
+| [0009](0009-azure-app-service-compute-model.md) | Use Azure App Service (Linux) as the Compute Model | Proposed |
 
 ## Decision backlog
 
@@ -48,7 +49,6 @@ Open decisions already flagged by name across the architecture books, waiting fo
 | Audit log access and retention policy | [Security & Privacy](../12-security-privacy/index.md#not-yet-decided) |
 | Multi-tenancy model (single vs. per-school schema, for Phase 3 "School edition") | [Database Architecture](../09-database-architecture/index.md#privacy-and-child-safety-in-schema-design) |
 | Backup frequency, retention, and DR targets | [Infrastructure & DevOps](../13-infrastructure-devops/index.md#backups-disaster-recovery) |
-| Azure compute model (App Service / Container Apps / AKS) | [Infrastructure & DevOps](../13-infrastructure-devops/index.md#hosting-cdn-decided) |
 | Design token format/tooling and component styling approach | [UI/UX Design System](../11-ui-ux-design-system/index.md#not-yet-decided) |
 | UI language/locale strategy | [UI/UX Design System](../11-ui-ux-design-system/index.md#language) |
 | Frontend unit-test tool | [Testing & QA](../14-testing-qa/index.md#test-types-and-tooling) |
