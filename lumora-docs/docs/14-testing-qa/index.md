@@ -6,7 +6,7 @@ This book defines how Lumora Academy code gets tested and what "release-ready" m
 
 ## Status
 
-Version: 1.1 foundation draft. Establishes test types, tooling, and the AI-testing boundary. Coverage targets and CI enforcement mechanics are flagged open below.
+Version: 1.2 foundation draft. Establishes test types, tooling, and the AI-testing boundary. Coverage targets are still flagged open below.
 
 ## Test types and tooling
 
@@ -15,10 +15,8 @@ Backend tooling is already decided ([Technology Stack](../07-software-architectu
 | Layer | Tool | Covers |
 |---|---|---|
 | Laravel backend (unit/feature) | Pest / PHPUnit | Module logic, API endpoints, database interactions |
-| End-to-end | Playwright | Real user flows across the Next.js portal and API together |
-
-!!! note "Not yet decided"
-    A frontend unit-testing tool for the Next.js portal (e.g. Vitest/Jest) is not chosen — Technology Stack only commits to Playwright for e2e. Decide this before Phase 1 portal work produces components that need isolated testing, not after.
+| Next.js portal (unit/component) | Jest + React Testing Library | Isolated component/hook logic — proposed, [ADR-0011](../21-adr/0011-jest-frontend-unit-testing.md), pending acceptance |
+| End-to-end | Playwright | Real user flows across the Next.js portal and API together, plus anything touching `async` Server Components |
 
 ## What gets tested where
 
@@ -49,7 +47,7 @@ Before a feature or release ships, per the [Development Standards](../08-develop
 - Documentation impact from the feature spec has actually been made — a feature isn't release-ready with its own docs still pending.
 
 !!! note "Not yet decided"
-    Coverage targets/thresholds, and whether CI blocks merges automatically on failing tests versus a manual release gate, are both open — the latter depends on the CI/CD setup owned by [Infrastructure & DevOps](../13-infrastructure-devops/index.md).
+    Coverage targets/thresholds are still open. Whether CI blocks merges on failing tests is resolved — [ADR-0003](../21-adr/0003-github-actions-required-status-checks.md) (pending acceptance) proposes blocking, owned by [Infrastructure & DevOps](../13-infrastructure-devops/index.md).
 
 ## Scope boundaries
 

@@ -6,12 +6,12 @@ An ADR (Architecture Decision Record) captures one binding decision: the problem
 
 ## Status
 
-Version: 1.2 foundation draft. One ADR is accepted, nine are proposed and awaiting review; the backlog below tracks decisions the other architecture books have already flagged as open.
+Version: 1.2 foundation draft. One ADR is accepted, ten are proposed and awaiting review; the backlog below tracks decisions the other architecture books have already flagged as open.
 
 ## Process
 
 1. Copy the [ADR template](../24-templates/adr-template.md).
-2. Number it sequentially (next is `ADR-0011`).
+2. Number it sequentially (next is `ADR-0012`).
 3. Set `Status: Proposed` and fill in Context, Decision, Alternatives considered, Consequences, and Review date. Add it to [Proposed ADRs](#proposed-adrs) and remove its row from the [decision backlog](#decision-backlog) below — a Proposed ADR replaces the backlog row, since the question is now tracked in one place, not two.
 4. Once agreed, set `Status: Accepted` and move it from Proposed ADRs to [Accepted ADRs](#accepted-adrs). A later decision that replaces one sets the old one's status to `Superseded` rather than deleting it — the record of *why* the old choice was made stays valuable.
 
@@ -36,6 +36,7 @@ Drafted and awaiting review/acceptance — not yet binding.
 | [0008](0008-three-environment-topology.md) | Three Environments — Local, Staging, Production | Proposed |
 | [0009](0009-azure-app-service-compute-model.md) | Use Azure App Service (Linux) as the Compute Model | Proposed |
 | [0010](0010-backup-retention-and-dr-targets.md) | PostgreSQL Backup Retention and DR Targets | Proposed |
+| [0011](0011-jest-frontend-unit-testing.md) | Use Jest with React Testing Library for Frontend Unit Testing | Proposed |
 
 ## Decision backlog
 
@@ -51,7 +52,6 @@ Open decisions already flagged by name across the architecture books, waiting fo
 | Multi-tenancy model (single vs. per-school schema, for Phase 3 "School edition") | [Database Architecture](../09-database-architecture/index.md#privacy-and-child-safety-in-schema-design) |
 | Design token format/tooling and component styling approach | [UI/UX Design System](../11-ui-ux-design-system/index.md#not-yet-decided) |
 | UI language/locale strategy | [UI/UX Design System](../11-ui-ux-design-system/index.md#language) |
-| Frontend unit-test tool | [Testing & QA](../14-testing-qa/index.md#test-types-and-tooling) |
 | Coverage targets/thresholds | [Testing & QA](../14-testing-qa/index.md#release-readiness) |
 | Prompt storage/versioning mechanics and rollback | [AI Development Bible](../06-ai-development-bible/index.md#prompt-library) |
 | Per-task AI model/provider selection strategy and cost controls | [AI Development Bible](../06-ai-development-bible/index.md#model-and-provider-selection) |
