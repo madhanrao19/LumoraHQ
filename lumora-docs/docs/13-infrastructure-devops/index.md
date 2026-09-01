@@ -26,7 +26,7 @@ Not yet decided: how many environments exist (e.g. local/staging/production), ho
 
 ## Secrets
 
-[Security & Privacy](../12-security-privacy/index.md#secrets-management) already states the principle — secrets are environment configuration, never committed. This book owns the mechanism: **which secret manager holds them in each environment is not yet decided** (Azure Key Vault is the natural fit given the hosting decision, but that's not yet an ADR).
+[Security & Privacy](../12-security-privacy/index.md#secrets-management) already states the principle — secrets are environment configuration, never committed. This book owns the mechanism: **Azure Key Vault** is the proposed secret manager for all environments ([ADR-0007](../21-adr/0007-azure-key-vault-secret-manager.md), pending acceptance).
 
 ## Backups & disaster recovery
 
@@ -59,7 +59,6 @@ Laravel Reverb is used "where appropriate," not by default ([Software Architectu
 - Azure compute model (App Service vs. Container Apps vs. AKS).
 - Application CI/CD pipeline and whether it blocks merges.
 - Environment topology (count, promotion flow, what differs per environment).
-- Secret manager choice.
 - Backup frequency, retention, and DR targets for PostgreSQL and S3-compatible storage.
 - Alerting/on-call policy for Sentry/OpenTelemetry signals.
 
