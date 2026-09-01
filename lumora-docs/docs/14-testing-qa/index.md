@@ -46,8 +46,7 @@ Before a feature or release ships, per the [Development Standards](../08-develop
 - No unresolved findings from a [Security & Privacy](../12-security-privacy/index.md) review are outstanding for the feature.
 - Documentation impact from the feature spec has actually been made — a feature isn't release-ready with its own docs still pending.
 
-!!! note "Not yet decided"
-    Coverage targets/thresholds are still open. Whether CI blocks merges on failing tests is resolved — [ADR-0003](../21-adr/0003-github-actions-required-status-checks.md) (pending acceptance) proposes blocking, owned by [Infrastructure & DevOps](../13-infrastructure-devops/index.md).
+Coverage is deliberately not a blocking percentage gate — [ADR-0012](../21-adr/0012-coverage-signal-not-gate.md) (pending acceptance) requires tests for module boundaries and every AI Gateway safety behavior instead, with coverage percentage kept as a reported trend signal only. Whether CI blocks merges on failing tests at all is resolved separately — [ADR-0003](../21-adr/0003-github-actions-required-status-checks.md) (pending acceptance) proposes blocking, owned by [Infrastructure & DevOps](../13-infrastructure-devops/index.md).
 
 ## Scope boundaries
 

@@ -57,6 +57,7 @@ nav:
       - "ADR-0009: Azure App Service Compute": 21-adr/0009-azure-app-service-compute-model.md
       - "ADR-0010: Backup Retention & DR": 21-adr/0010-backup-retention-and-dr-targets.md
       - "ADR-0011: Jest Frontend Testing": 21-adr/0011-jest-frontend-unit-testing.md
+      - "ADR-0012: Coverage Signal Not Gate": 21-adr/0012-coverage-signal-not-gate.md
   - Playbooks: 22-playbooks/index.md
   - Runbooks: 23-runbooks/index.md
   - Templates:
