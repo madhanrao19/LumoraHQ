@@ -8,7 +8,7 @@ Proposed
 
 [API Architecture](../10-api-architecture/index.md#core-conventions) already requires "a consistent error shape across every endpoint" and "consistent pagination for any list endpoint," decided once rather than per-endpoint — but left the exact envelope/error/pagination format open.
 
-Laravel 12 (the decided backend, [ADR-0001](0001-use-laravel-filament-postgresql.md)) already ships default conventions for exactly this: Eloquent API Resources wrap a response in a `data` key by default, the default paginator emits `data`/`links`/`meta`, and the default exception handler returns `{"message": ..., "errors": {...}}` for validation failures (422) and `{"message": ...}` for other exceptions. [Development Standards](../08-development-standards/index.md#code-style) already established the reasoning this ADR reuses: "default to each stack's standard tool rather than inventing custom rules."
+Laravel (the decided backend, [ADR-0001](0001-use-laravel-filament-postgresql.md); exact version tracked in [Technology Stack](../07-software-architecture/technology-stack.md)) already ships default conventions for exactly this: Eloquent API Resources wrap a response in a `data` key by default, the default paginator emits `data`/`links`/`meta`, and the default exception handler returns `{"message": ..., "errors": {...}}` for validation failures (422) and `{"message": ...}` for other exceptions. [Development Standards](../08-development-standards/index.md#code-style) already established the reasoning this ADR reuses: "default to each stack's standard tool rather than inventing custom rules."
 
 ## Decision
 

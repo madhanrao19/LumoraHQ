@@ -14,7 +14,7 @@ Version: 1.1 foundation draft. Expands the Phase 0 skeleton with the first real 
 
 Lumora Academy is built as a **modular monolith**, per [ADR-0001](../21-adr/0001-use-laravel-filament-postgresql.md) and the [Constitution](../00-constitution/index.md#non-negotiable-principles) (principle 9: architecture must remain modular; principle 10: minimize vendor lock-in).
 
-- One Laravel 12 application, organized into clearly bounded internal modules — not a shared "big ball of mud."
+- One Laravel application, organized into clearly bounded internal modules — not a shared "big ball of mud."
 - No microservices at launch. Split a module into its own service only when scale, team boundaries, performance, or reliability justify it (ADR-0001).
 - External integrations (AI providers, storage, search) sit behind abstraction layers so the underlying vendor can be swapped without touching the modules that use them.
 
@@ -27,7 +27,7 @@ flowchart LR
         Admin["Admin Portal<br/>(Filament, server-rendered)"]
     end
 
-    subgraph Backend["Laravel 12 application (modular monolith)"]
+    subgraph Backend["Laravel application (modular monolith)"]
         API["API layer<br/>(Sanctum auth)"]
         Identity["Identity & Access"]
         Curriculum["Curriculum & Content"]

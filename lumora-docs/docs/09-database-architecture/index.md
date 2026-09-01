@@ -16,7 +16,7 @@ Per [Technology Stack](../07-software-architecture/technology-stack.md) and [ADR
 
 ```mermaid
 flowchart LR
-    App["Laravel 12 application<br/>(modular monolith)"]
+    App["Laravel application<br/>(modular monolith)"]
     PG[("PostgreSQL + pgvector<br/>source of truth")]
     Redis[("Redis<br/>cache & queue — not durable")]
     Meili[("Meilisearch<br/>derived search index")]

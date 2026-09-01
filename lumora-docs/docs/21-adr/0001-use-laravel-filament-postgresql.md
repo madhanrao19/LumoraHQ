@@ -10,7 +10,7 @@ Lumora Academy needs a practical stack that a small team can build quickly while
 
 ## Decision
 
-Use Laravel 12 as the backend foundation, Filament for admin/content operations, and PostgreSQL as the primary database.
+Use Laravel as the backend foundation, Filament for admin/content operations, and PostgreSQL as the primary database. This ADR decides the framework choice, not a pinned release — exact versions are tracked in [Technology Stack](../07-software-architecture/technology-stack.md) so this record doesn't go stale as Laravel/Filament/PostgreSQL ship new majors. *(Originally accepted when Laravel 12 was current; the version reference was removed from this line on 2026-09-01 for that reason, without reopening the framework decision itself.)*
 
 ## Consequences
 

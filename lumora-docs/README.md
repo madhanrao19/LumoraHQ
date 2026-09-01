@@ -6,7 +6,7 @@ Lumora Academy is an AI-native education platform built with a documentation-dri
 
 ## Core stack decision
 
-- Backend: Laravel 12
+- Backend: Laravel (see [technology stack doc](docs/07-software-architecture/technology-stack.md) for exact pinned versions)
 - Admin: Filament
 - Frontend: Next.js + React
 - Database: PostgreSQL
