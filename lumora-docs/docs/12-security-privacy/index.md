@@ -6,13 +6,13 @@ This book defines Lumora Academy's security and privacy standards: authenticatio
 
 ## Status
 
-Version: 1.1 foundation draft. Establishes principles in each category below; several concrete policies are explicitly flagged as not yet decided rather than assumed — see [Not yet decided](#not-yet-decided).
+Version: 1.2 foundation draft. Establishes principles in each category below; the role/permission model now has a proposed ADR. Several other concrete policies are still flagged as not yet decided rather than assumed — see [Not yet decided](#not-yet-decided).
 
 ## Authentication & authorization
 
 - Authentication uses Laravel Sanctum ([API Architecture](../10-api-architecture/index.md#authentication)); the cookie-vs-token decision is tracked there, not duplicated here.
 - Roles and permissions are owned by the Identity & Access module ([Software Architecture](../07-software-architecture/index.md#primary-modules-working-draft)). Authorization is checked at the module boundary — a module verifies the caller's permission itself rather than trusting that the API layer already checked, so the same rule holds whether a call comes from the API, from Filament, or from another module.
-- The role set is not yet defined beyond what the Roadmap implies (student, parent, admin at minimum for Phase 1; teacher for Phase 3's "Teacher tools"). Define the actual role/permission model as an ADR before Phase 1 auth work starts.
+- **Role set:** Student, Parent, Admin for Phase 1, Teacher added in Phase 3 — authorized via native Laravel Policies rather than a permission package, so Filament's admin authorization comes from the same mechanism ([ADR-0018](../21-adr/0018-native-policies-role-model.md), pending acceptance).
 
 ## Privacy & data protection
 
@@ -43,8 +43,7 @@ Directly from the [Constitution](../00-constitution/index.md#non-negotiable-prin
 
 - **Applicable privacy regulation(s).** Lumora Academy handles children's data, references Malaysian curricula, and is hosted on Azure — which specific regulatory regime(s) apply (and therefore what consent, age-gating, and data-residency rules follow) has not been decided. This affects onboarding and consent flow design directly, so resolve it before Phase 1 authentication work, not after.
 - **Data classification scheme** — which fields/tables count as personal vs. sensitive/child-related (referenced above and in Database Architecture).
-- **Role/permission model** — the actual role set and what each role can do.
-- **Parent-child account relationship model** — required by AI Safety Principles requirement 6, not yet designed.
+- **Parent-child account relationship model** — required by AI Safety Principles requirement 6, not yet designed. (The *authorization mechanism* that will enforce it is decided — [ADR-0018](../21-adr/0018-native-policies-role-model.md) — but the data model itself is separate and still open.)
 - **Audit log access and retention policy** — who can read the AI audit trail and for how long.
 
 Each of these should be resolved as an ADR, not decided implicitly in code — see [Development Standards](../08-development-standards/index.md#feature-workflow).

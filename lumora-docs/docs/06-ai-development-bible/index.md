@@ -6,7 +6,7 @@ This book defines how AI is built into Lumora Academy: provider abstraction in p
 
 ## Status
 
-Version: 1.1 foundation draft. Establishes governance principles; several concrete mechanics are flagged open below rather than assumed.
+Version: 1.3 foundation draft. Establishes governance principles; prompt storage/versioning and model/provider selection strategy now have proposed ADRs; human review roles are still open.
 
 ## Relationship to Safety Principles
 
@@ -26,8 +26,7 @@ Prompts are a governed asset, not inline strings scattered through feature code:
 - Prompts live centrally (owned by the AI Gateway module) so they can be versioned and reviewed independently of the feature code that uses them.
 - A prompt change that affects production content-facing behavior gets the same review rigor as a content or code change — it's not exempt just because it's "just a prompt."
 
-!!! note "Not yet decided"
-    Where prompts are physically stored (database, versioned files, or a dedicated prompt-management service) and how rollback works if a prompt change regresses quality. Resolve as an ADR before the Phase 2 prompt library is built.
+**Storage and rollback:** [ADR-0015](../21-adr/0015-prompts-as-version-controlled-code.md) (pending acceptance) proposes prompts as version-controlled files, not database rows — changed only through the normal PR/CI/deploy pipeline, so every prompt change gets the same review and test gate as any other code change. Rollback is a `git revert`.
 
 ## RAG source boundary
 
@@ -35,10 +34,7 @@ Safety Principles requirement 1 ("AI should answer from approved Lumora content 
 
 ## Model and provider selection
 
-OpenAI and Claude are the decided providers ([Technology Stack](../07-software-architecture/technology-stack.md)). Which provider/model handles which task — and the cost/quality tradeoffs behind that choice — is not yet decided.
-
-!!! note "Not yet decided"
-    Per-task model/provider selection strategy and cost controls. Resolve as an ADR before Phase 2 AI features (lesson drafting, quiz drafting, tutor) are built, since it affects both the Gateway's routing logic and ongoing operating cost.
+OpenAI and Claude are the decided providers ([Technology Stack](../07-software-architecture/technology-stack.md)). [ADR-0016](../21-adr/0016-ai-model-tiering-strategy.md) (pending acceptance) proposes routing by capability tier (economical / higher-quality / safety-classification) rather than pinning a specific model name — durable as models rotate, since which model fills each tier is Gateway configuration, not an architecture decision. Its task-to-tier starting map is explicitly a hypothesis to validate once Phase 2 has real usage data, not a permanent rule.
 
 ## Human review and escalation roles
 
@@ -52,8 +48,8 @@ Safety Principles requirements 2 (human review before publish) and 7 (unsafe con
 | AI Gateway API contract (draft/published state, audit logging, no raw provider leakage) | [API Architecture](../10-api-architecture/index.md#the-ai-gateway-boundary) |
 | Automated testing of AI Gateway behavior vs. content correctness | [Testing & QA](../14-testing-qa/index.md#the-ai-testing-boundary) |
 | AI-specific abuse defenses, rate limiting | [Security & Privacy](../12-security-privacy/index.md#injection-abuse-defenses) |
-| AI tutor/agent persona and behavior design | [AI Agents Handbook](../16-ai-agents-handbook/index.md) *(not yet written)* |
-| Editorial approval workflow for content RAG can index | [Content Operations](../17-content-operations/index.md) *(not yet written)* |
+| AI tutor/agent persona and behavior design | [AI Agents Handbook](../16-ai-agents-handbook/index.md) |
+| Editorial approval workflow for content RAG can index | [Content Operations](../17-content-operations/index.md) |
 
 ## Related documents
 

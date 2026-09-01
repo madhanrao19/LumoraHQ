@@ -6,12 +6,12 @@ An ADR (Architecture Decision Record) captures one binding decision: the problem
 
 ## Status
 
-Version: 1.2 foundation draft. One ADR is accepted, eleven are proposed and awaiting review; the backlog below tracks decisions the other architecture books have already flagged as open.
+Version: 1.2 foundation draft. One ADR is accepted, seventeen are proposed and awaiting review; the backlog below tracks decisions the other architecture books have already flagged as open.
 
 ## Process
 
 1. Copy the [ADR template](../24-templates/adr-template.md).
-2. Number it sequentially (next is `ADR-0013`).
+2. Number it sequentially (next is `ADR-0019`).
 3. Set `Status: Proposed` and fill in Context, Decision, Alternatives considered, Consequences, and Review date. Add it to [Proposed ADRs](#proposed-adrs) and remove its row from the [decision backlog](#decision-backlog) below — a Proposed ADR replaces the backlog row, since the question is now tracked in one place, not two.
 4. Once agreed, set `Status: Accepted` and move it from Proposed ADRs to [Accepted ADRs](#accepted-adrs). A later decision that replaces one sets the old one's status to `Superseded` rather than deleting it — the record of *why* the old choice was made stays valuable.
 
@@ -38,6 +38,12 @@ Drafted and awaiting review/acceptance — not yet binding.
 | [0010](0010-backup-retention-and-dr-targets.md) | PostgreSQL Backup Retention and DR Targets | Proposed |
 | [0011](0011-jest-frontend-unit-testing.md) | Use Jest with React Testing Library for Frontend Unit Testing | Proposed |
 | [0012](0012-coverage-signal-not-gate.md) | Coverage Is a Signal, Not a Blocking Gate | Proposed |
+| [0013](0013-tailwind-v4-design-tokens.md) | Use Tailwind CSS v4 with CSS-First `@theme` Tokens | Proposed |
+| [0014](0014-english-only-launch-with-locale-route-scaffold.md) | English-Only Launch, with Next.js's Native Locale Route Scaffold from Day One | Proposed |
+| [0015](0015-prompts-as-version-controlled-code.md) | Prompts Are Version-Controlled Code, Not Live-Editable Database Rows | Proposed |
+| [0016](0016-ai-model-tiering-strategy.md) | Route AI Requests by Capability Tier, Not by Pinned Model Name | Proposed |
+| [0017](0017-single-tenant-schema-defer-multi-tenancy.md) | Single-Tenant Shared Schema; Defer Multi-Tenancy Pattern to Phase 3 | Proposed |
+| [0018](0018-native-policies-role-model.md) | Fixed Role Set with Native Laravel Policies, Not a Permission Package | Proposed |
 
 ## Decision backlog
 
@@ -45,16 +51,10 @@ Open decisions already flagged by name across the architecture books, waiting fo
 
 | Decision needed | Flagged by |
 |---|---|
-| Role/permission model | [Security & Privacy](../12-security-privacy/index.md#not-yet-decided) |
 | Parent-child account relationship model | [Security & Privacy](../12-security-privacy/index.md#not-yet-decided) |
 | Applicable privacy regulation(s) (COPPA/GDPR/PDPA-equivalent) | [Security & Privacy](../12-security-privacy/index.md#not-yet-decided) |
 | Data classification scheme (personal vs. sensitive/child-related) | [Database Architecture](../09-database-architecture/index.md#privacy-and-child-safety-in-schema-design), [Security & Privacy](../12-security-privacy/index.md#not-yet-decided) |
 | Audit log access and retention policy | [Security & Privacy](../12-security-privacy/index.md#not-yet-decided) |
-| Multi-tenancy model (single vs. per-school schema, for Phase 3 "School edition") | [Database Architecture](../09-database-architecture/index.md#privacy-and-child-safety-in-schema-design) |
-| Design token format/tooling and component styling approach | [UI/UX Design System](../11-ui-ux-design-system/index.md#not-yet-decided) |
-| UI language/locale strategy | [UI/UX Design System](../11-ui-ux-design-system/index.md#language) |
-| Prompt storage/versioning mechanics and rollback | [AI Development Bible](../06-ai-development-bible/index.md#prompt-library) |
-| Per-task AI model/provider selection strategy and cost controls | [AI Development Bible](../06-ai-development-bible/index.md#model-and-provider-selection) |
 | Human review and escalation roles for AI content | [AI Development Bible](../06-ai-development-bible/index.md#human-review-and-escalation-roles) |
 | AI Tutor conversational scope and real-time escalation triggers | [AI Agents Handbook](../16-ai-agents-handbook/index.md#not-yet-decided) |
 | AI Tutor teaching methodology (Socratic vs. direct instruction, scaffolding) | [Educational Framework](../04-educational-framework/index.md#ai-tutors-pedagogical-role) |

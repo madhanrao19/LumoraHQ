@@ -6,14 +6,14 @@ This book defines Lumora Academy's shared design tokens, component library, acce
 
 ## Status
 
-Version: 1.1 foundation draft. Establishes the accessibility target and the client-consistency constraint below; token tooling, i18n strategy, and the component library's styling approach are flagged as not yet decided.
+Version: 1.3 foundation draft. Establishes the accessibility target and the client-consistency constraint below; token tooling, styling approach, and language strategy now all have proposed ADRs awaiting acceptance.
 
 ## Two client stacks, one design system — with a real constraint
 
 Per [Software Architecture](../07-software-architecture/index.md#system-overview), the Student/Parent Portal is Next.js + React; the Admin Portal is Filament, which is server-rendered PHP, not React. This matters for what "shared design system" can actually mean:
 
 - **`lumora-design-system`** (the shared component package — currently a placeholder) is directly consumable as React components by the Next.js portal only. Filament cannot import a React component library.
-- **Design tokens** (colors, typography, spacing, radii) *can* be shared across both — as the single source of truth compiled into whatever format each stack needs (CSS variables/Tailwind config for Next.js, a Filament theme for the admin panel).
+- **Design tokens** (colors, typography, spacing, radii) *can* be shared across both — as the single source of truth compiled into whatever format each stack needs. [ADR-0013](../21-adr/0013-tailwind-v4-design-tokens.md) (pending acceptance) proposes Tailwind CSS v4's CSS-first `@theme` tokens as that source: since they're plain CSS custom properties, Filament's theme consumes the same file directly, no separate token-pipeline tool required.
 - Treat these as two different sharing problems: component-level reuse (Next.js only) and token-level consistency (both). Don't assume Filament will look identical to the portal — it should look *consistent* (same colors, type scale, spacing rhythm), not componentized from the same library.
 
 ## Accessibility
@@ -24,7 +24,7 @@ Which automated accessibility tool (if any) enforces it in CI remains [Testing &
 
 ## Language
 
-Constitution principle 7 explicitly includes "different... languages," and content is built around Malaysian curriculum alignment. Neither the UI's language strategy (single language at launch vs. multi-language) nor an i18n framework/approach is decided yet — flagging this now so it isn't accidentally locked in by whichever language the first components happen to be built in.
+Constitution principle 7 explicitly includes "different... languages," and content is built around Malaysian curriculum alignment. [ADR-0014](../21-adr/0014-english-only-launch-with-locale-route-scaffold.md) (pending acceptance) proposes English-only for Phase 1 — multi-language isn't a named Roadmap requirement yet — but structures routes under Next.js's native `[lang]` segment from day one, so the URL shape never needs a breaking retrofit if multi-language arrives later. No i18n library is adopted until that's a real, scheduled need.
 
 ## Devices and network conditions
 
@@ -36,8 +36,6 @@ Also from principle 7 ("different devices and internet conditions"): the design 
 
 ## Not yet decided
 
-- Design token format/tooling (e.g. a token pipeline vs. plain Tailwind config vs. CSS custom properties) and how it feeds both Next.js and Filament.
-- Component library's styling approach (Tailwind, CSS-in-JS, or otherwise) — the root README commits to Next.js + React but not a styling method.
 - UI language/locale strategy and i18n framework.
 
 Each belongs in an ADR when decided, per [Development Standards](../08-development-standards/index.md#feature-workflow).

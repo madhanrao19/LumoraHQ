@@ -58,6 +58,12 @@ nav:
       - "ADR-0010: Backup Retention & DR": 21-adr/0010-backup-retention-and-dr-targets.md
       - "ADR-0011: Jest Frontend Testing": 21-adr/0011-jest-frontend-unit-testing.md
       - "ADR-0012: Coverage Signal Not Gate": 21-adr/0012-coverage-signal-not-gate.md
+      - "ADR-0013: Tailwind v4 Design Tokens": 21-adr/0013-tailwind-v4-design-tokens.md
+      - "ADR-0014: English-Only Launch, i18n Scaffold": 21-adr/0014-english-only-launch-with-locale-route-scaffold.md
+      - "ADR-0015: Prompts as Version-Controlled Code": 21-adr/0015-prompts-as-version-controlled-code.md
+      - "ADR-0016: AI Model Tiering Strategy": 21-adr/0016-ai-model-tiering-strategy.md
+      - "ADR-0017: Single-Tenant Schema": 21-adr/0017-single-tenant-schema-defer-multi-tenancy.md
+      - "ADR-0018: Role Model (Native Policies)": 21-adr/0018-native-policies-role-model.md
   - Playbooks: 22-playbooks/index.md
   - Runbooks: 23-runbooks/index.md
   - Templates:

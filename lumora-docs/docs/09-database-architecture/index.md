@@ -8,7 +8,7 @@ It does not define actual table schemas yet — see [Status](#status).
 
 ## Status
 
-Version: 1.1 foundation draft. Establishes data-store roles and ownership principles ahead of Phase 1. No tables are designed yet; that starts once a module's feature work begins, and each schema should be reviewed against this book as it's built.
+Version: 1.2 foundation draft. Establishes data-store roles and ownership principles ahead of Phase 1. No tables are designed yet; that starts once a module's feature work begins, and each schema should be reviewed against this book as it's built. Multi-tenancy now has a proposed ADR; data classification and retention policy are still open.
 
 ## Data stores and their roles
 
@@ -57,8 +57,10 @@ Directly from the [Constitution](../00-constitution/index.md#non-negotiable-prin
 - Every table holding personal or child-related data should be identifiable as such (flagged in migration comments or a data classification doc) so it can be located for access, export, or deletion requests.
 - Detailed retention, deletion, and compliance rules are owned by [Security & Privacy](../12-security-privacy/index.md), not this book — this book only ensures the schema is *shaped* to support them.
 
+**Multi-tenancy:** [ADR-0017](../21-adr/0017-single-tenant-schema-defer-multi-tenancy.md) (pending acceptance) proposes staying single-tenant/shared-schema through Phase 1 and Phase 2, with the actual multi-tenancy pattern for Phase 3 "School edition" chosen then, informed by real requirements — not decided now.
+
 !!! note "Not yet decided"
-    Field-level data classification, retention/archival policy, and whether multi-school tenancy (Roadmap Phase 3 "School edition") needs schema-level changes (shared schema vs. per-tenant isolation) are all open. Resolve as an ADR when the relevant phase starts — don't assume single-tenant shared-schema is permanent.
+    Field-level data classification and retention/archival policy are still open. Resolve as an ADR — see [Security & Privacy](../12-security-privacy/index.md#not-yet-decided).
 
 ## Scope boundaries
 
