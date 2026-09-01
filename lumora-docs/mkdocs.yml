@@ -25,8 +25,12 @@ nav:
   - Product Strategy: 03-product-strategy/index.md
   - Educational Framework: 04-educational-framework/index.md
   - Curriculum Framework: 05-curriculum-framework/index.md
-  - AI Development Bible: 06-ai-development-bible/index.md
-  - Software Architecture: 07-software-architecture/index.md
+  - AI Development Bible:
+      - 06-ai-development-bible/index.md
+      - AI Safety Principles: 06-ai-development-bible/ai-safety-principles.md
+  - Software Architecture:
+      - 07-software-architecture/index.md
+      - Technology Stack: 07-software-architecture/technology-stack.md
   - Development Standards: 08-development-standards/index.md
   - Database Architecture: 09-database-architecture/index.md
   - API Architecture: 10-api-architecture/index.md
@@ -40,9 +44,14 @@ nav:
   - Analytics & Data: 18-analytics-data/index.md
   - Mobile Platform: 19-mobile-platform/index.md
   - Research & Future Vision: 20-research-future/index.md
-  - Architecture Decision Records: 21-adr/index.md
+  - Architecture Decision Records:
+      - 21-adr/index.md
+      - "ADR-0001: Laravel, Filament, PostgreSQL": 21-adr/0001-use-laravel-filament-postgresql.md
   - Playbooks: 22-playbooks/index.md
   - Runbooks: 23-runbooks/index.md
-  - Templates: 24-templates/index.md
+  - Templates:
+      - 24-templates/index.md
+      - ADR Template: 24-templates/adr-template.md
+      - Feature Spec Template: 24-templates/feature-spec-template.md
   - Roadmap: 25-roadmap/index.md
   - Release Notes: 26-release-notes/index.md

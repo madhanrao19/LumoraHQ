@@ -2,19 +2,54 @@
 
 ## Purpose
 
-This book defines the architecture decision records standards for Lumora Academy.
+An ADR (Architecture Decision Record) captures one binding decision: the problem, the choice made, the alternatives considered, and the trade-offs accepted. Per [Development Standards](../08-development-standards/index.md#feature-workflow), a binding architecture decision becomes an ADR — it isn't picked implicitly in code or buried in a Slack thread.
 
 ## Status
 
-Version: 1.0 foundation draft.
+Version: 1.1 foundation draft. One ADR is accepted so far; the backlog below tracks decisions the other architecture books have already flagged as open.
 
-## Scope
+## Process
 
-This section will be expanded as Lumora Academy grows.
+1. Copy the [ADR template](../24-templates/adr-template.md).
+2. Number it sequentially (next is `ADR-0002`).
+3. Set `Status: Proposed` and fill in Context, Decision, Alternatives considered, Consequences, and Review date.
+4. Once agreed, set `Status: Accepted` and add it to the index below. A later decision that replaces one sets the old one's status to `Superseded` rather than deleting it — the record of *why* the old choice was made stays valuable.
 
-## Initial responsibilities
+## Accepted ADRs
 
-- Define clear principles.
-- Provide reusable standards.
-- Support developers, AI agents, educators, and contributors.
-- Keep decisions traceable and maintainable.
+| ADR | Title | Status |
+|---|---|---|
+| [0001](0001-use-laravel-filament-postgresql.md) | Use Laravel, Filament, and PostgreSQL as the Foundation Stack | Accepted |
+
+## Decision backlog
+
+Open decisions already flagged by name across the architecture books, waiting for an ADR. Listed once here even where more than one book depends on the answer:
+
+| Decision needed | Flagged by |
+|---|---|
+| Sanctum auth mode (cookie vs. token) | [API Architecture](../10-api-architecture/index.md#authentication) |
+| API envelope, error shape, and pagination conventions | [API Architecture](../10-api-architecture/index.md#core-conventions) |
+| Role/permission model | [Security & Privacy](../12-security-privacy/index.md#not-yet-decided) |
+| Parent-child account relationship model | [Security & Privacy](../12-security-privacy/index.md#not-yet-decided) |
+| Applicable privacy regulation(s) (COPPA/GDPR/PDPA-equivalent) | [Security & Privacy](../12-security-privacy/index.md#not-yet-decided) |
+| Data classification scheme (personal vs. sensitive/child-related) | [Database Architecture](../09-database-architecture/index.md#privacy-and-child-safety-in-schema-design), [Security & Privacy](../12-security-privacy/index.md#not-yet-decided) |
+| Audit log access and retention policy | [Security & Privacy](../12-security-privacy/index.md#not-yet-decided) |
+| Multi-tenancy model (single vs. per-school schema, for Phase 3 "School edition") | [Database Architecture](../09-database-architecture/index.md#privacy-and-child-safety-in-schema-design) |
+| Branching model, PR requirements, commit conventions | [Development Standards](../08-development-standards/index.md#code-style) |
+| Environment topology (count, promotion flow, what differs per environment) | [Infrastructure & DevOps](../13-infrastructure-devops/index.md#environments) |
+| CI/CD pipeline choice and merge-blocking policy | [Infrastructure & DevOps](../13-infrastructure-devops/index.md#cicd), [Testing & QA](../14-testing-qa/index.md#release-readiness) |
+| Secret manager choice | [Infrastructure & DevOps](../13-infrastructure-devops/index.md#secrets) |
+| Backup frequency, retention, and DR targets | [Infrastructure & DevOps](../13-infrastructure-devops/index.md#backups-disaster-recovery) |
+| Azure compute model (App Service / Container Apps / AKS) | [Infrastructure & DevOps](../13-infrastructure-devops/index.md#hosting-cdn-decided) |
+| WCAG target ratification | [UI/UX Design System](../11-ui-ux-design-system/index.md#accessibility) |
+| Design token format/tooling and component styling approach | [UI/UX Design System](../11-ui-ux-design-system/index.md#not-yet-decided) |
+| UI language/locale strategy | [UI/UX Design System](../11-ui-ux-design-system/index.md#language) |
+| Frontend unit-test tool | [Testing & QA](../14-testing-qa/index.md#test-types-and-tooling) |
+| Coverage targets/thresholds | [Testing & QA](../14-testing-qa/index.md#release-readiness) |
+
+Remove a row once its ADR is accepted and add the ADR to the table above instead.
+
+## Related documents
+
+- [ADR Template](../24-templates/adr-template.md)
+- [Development Standards](../08-development-standards/index.md#feature-workflow) — when an ADR is required.
