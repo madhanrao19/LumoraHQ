@@ -47,6 +47,7 @@ nav:
   - Architecture Decision Records:
       - 21-adr/index.md
       - "ADR-0001: Laravel, Filament, PostgreSQL": 21-adr/0001-use-laravel-filament-postgresql.md
+      - "ADR-0002: Token-Based Sanctum Auth": 21-adr/0002-use-token-based-sanctum-authentication.md
   - Playbooks: 22-playbooks/index.md
   - Runbooks: 23-runbooks/index.md
   - Templates:
