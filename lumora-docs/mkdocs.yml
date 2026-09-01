@@ -49,6 +49,7 @@ nav:
       - "ADR-0001: Laravel, Filament, PostgreSQL": 21-adr/0001-use-laravel-filament-postgresql.md
       - "ADR-0002: Token-Based Sanctum Auth": 21-adr/0002-use-token-based-sanctum-authentication.md
       - "ADR-0003: GitHub Actions Required Checks": 21-adr/0003-github-actions-required-status-checks.md
+      - "ADR-0004: GitHub Flow & Commit Conventions": 21-adr/0004-github-flow-branching-and-commit-conventions.md
   - Playbooks: 22-playbooks/index.md
   - Runbooks: 23-runbooks/index.md
   - Templates:
