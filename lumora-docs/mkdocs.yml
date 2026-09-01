@@ -1,0 +1,48 @@
+site_name: Lumora Academy Docs
+site_description: Master documentation for Lumora Academy
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+plugins:
+  - search
+  - mermaid2
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+nav:
+  - Home: index.md
+  - Lumora Constitution: 00-constitution/index.md
+  - Vision & Philosophy: 01-vision-philosophy/index.md
+  - Business Strategy: 02-business-strategy/index.md
+  - Product Strategy: 03-product-strategy/index.md
+  - Educational Framework: 04-educational-framework/index.md
+  - Curriculum Framework: 05-curriculum-framework/index.md
+  - AI Development Bible: 06-ai-development-bible/index.md
+  - Software Architecture: 07-software-architecture/index.md
+  - Development Standards: 08-development-standards/index.md
+  - Database Architecture: 09-database-architecture/index.md
+  - API Architecture: 10-api-architecture/index.md
+  - UI/UX Design System: 11-ui-ux-design-system/index.md
+  - Security & Privacy: 12-security-privacy/index.md
+  - Infrastructure & DevOps: 13-infrastructure-devops/index.md
+  - Testing & QA: 14-testing-qa/index.md
+  - Claude Code Operating System: 15-claude-code-operating-system/index.md
+  - AI Agents Handbook: 16-ai-agents-handbook/index.md
+  - Content Operations: 17-content-operations/index.md
+  - Analytics & Data: 18-analytics-data/index.md
+  - Mobile Platform: 19-mobile-platform/index.md
+  - Research & Future Vision: 20-research-future/index.md
+  - Architecture Decision Records: 21-adr/index.md
+  - Playbooks: 22-playbooks/index.md
+  - Runbooks: 23-runbooks/index.md
+  - Templates: 24-templates/index.md
+  - Roadmap: 25-roadmap/index.md
+  - Release Notes: 26-release-notes/index.md

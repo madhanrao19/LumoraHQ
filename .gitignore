@@ -1,0 +1,39 @@
+# Python
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+dist/
+build/
+.next/
+.turbo/
+*.tsbuildinfo
+
+# MkDocs / docs build output
+site/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# IDE / editor
+.vs/
+.vscode/
+.idea/
+*.swp
+
+# Claude Code local (personal) settings
+**/.claude/settings.local.json
+
+# OS cruft
+.DS_Store
+Thumbs.db

@@ -1,0 +1,1 @@
+Verify the work before calling it complete. Check correctness, missing files, broken links, child safety, privacy, security, docs consistency, and tests where applicable. Return pass/fail and exact fixes.
