@@ -49,6 +49,13 @@ Open decisions already flagged by name across the architecture books, waiting fo
 | Prompt storage/versioning mechanics and rollback | [AI Development Bible](../06-ai-development-bible/index.md#prompt-library) |
 | Per-task AI model/provider selection strategy and cost controls | [AI Development Bible](../06-ai-development-bible/index.md#model-and-provider-selection) |
 | Human review and escalation roles for AI content | [AI Development Bible](../06-ai-development-bible/index.md#human-review-and-escalation-roles) |
+| AI Tutor conversational scope and real-time escalation triggers | [AI Agents Handbook](../16-ai-agents-handbook/index.md#not-yet-decided) |
+| AI Tutor teaching methodology (Socratic vs. direct instruction, scaffolding) | [Educational Framework](../04-educational-framework/index.md#ai-tutors-pedagogical-role) |
+| Curriculum taxonomy (subjects, grade bands) and content versioning | [Curriculum Framework](../05-curriculum-framework/index.md#working-structure) |
+| RAG-indexing trigger mechanics (auto on publish vs. separate flag) | [Content Operations](../17-content-operations/index.md#not-yet-decided) |
+| Analytics event taxonomy and retention period | [Analytics & Data](../18-analytics-data/index.md#not-yet-decided) |
+| Mobile framework and offline support strategy | [Mobile Platform](../19-mobile-platform/index.md#not-yet-decided) |
+| Whether other Lumora repos adopt this repo's Claude Code agent/command setup | [Claude Code Operating System](../15-claude-code-operating-system/index.md#session-rules) |
 
 Remove a row once its ADR is accepted and add the ADR to the table above instead.
 

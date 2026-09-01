@@ -2,19 +2,20 @@
 
 ## Purpose
 
-This book defines the runbooks standards for Lumora Academy.
+Step-by-step operational procedures for specific situations — incident response, deployment rollback, database restore — as distinct from [Playbooks](../22-playbooks/index.md), which are higher-level strategic/process guides.
 
 ## Status
 
-Version: 1.0 foundation draft.
+Version: 0.1 — none written. Writing a runbook before the procedure it describes actually exists would just be fiction; a "restore from backup" runbook, for instance, needs [Infrastructure & DevOps](../13-infrastructure-devops/index.md#backups-disaster-recovery)'s backup policy decided first, which it isn't yet. Runbooks start getting written once Phase 1 infrastructure is real.
 
-## Scope
+## Scope boundaries
 
-This section will be expanded as Lumora Academy grows.
+| Topic | Owned by |
+|---|---|
+| Strategic/process guides (different from step-by-step procedures) | [Playbooks](../22-playbooks/index.md) |
+| The infrastructure decisions most runbooks will depend on | [Infrastructure & DevOps](../13-infrastructure-devops/index.md) |
 
-## Initial responsibilities
+## Related documents
 
-- Define clear principles.
-- Provide reusable standards.
-- Support developers, AI agents, educators, and contributors.
-- Keep decisions traceable and maintainable.
+- [Playbooks](../22-playbooks/index.md) — the strategic counterpart to this book.
+- [Infrastructure & DevOps](../13-infrastructure-devops/index.md) — the prerequisite decisions most runbooks here will depend on.

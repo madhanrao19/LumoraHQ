@@ -2,19 +2,20 @@
 
 ## Purpose
 
-This book defines the playbooks standards for Lumora Academy.
+Repeatable strategic/process guides — "how we plan a release," "how we run a content review cycle" — as distinct from [Runbooks](../23-runbooks/index.md), which are step-by-step operational procedures for specific situations (an incident, a rollback).
 
 ## Status
 
-Version: 1.0 foundation draft.
+Version: 0.1 — no playbooks written yet. Phase 1 operations haven't started, so there's nothing repeatable to document. The closest thing that exists today is the feature workflow in [Development Standards](../08-development-standards/index.md#feature-workflow).
 
-## Scope
+## Scope boundaries
 
-This section will be expanded as Lumora Academy grows.
+| Topic | Owned by |
+|---|---|
+| Step-by-step operational/incident procedures | [Runbooks](../23-runbooks/index.md) |
+| The closest existing process today | [Development Standards](../08-development-standards/index.md#feature-workflow) |
 
-## Initial responsibilities
+## Related documents
 
-- Define clear principles.
-- Provide reusable standards.
-- Support developers, AI agents, educators, and contributors.
-- Keep decisions traceable and maintainable.
+- [Runbooks](../23-runbooks/index.md) — the operational counterpart to this book.
+- [Development Standards](../08-development-standards/index.md) — the feature workflow this book will eventually sit alongside.
