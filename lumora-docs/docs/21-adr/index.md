@@ -6,12 +6,12 @@ An ADR (Architecture Decision Record) captures one binding decision: the problem
 
 ## Status
 
-Version: 1.1 foundation draft. One ADR is accepted so far; the backlog below tracks decisions the other architecture books have already flagged as open.
+Version: 1.2 foundation draft. One ADR is accepted, two are proposed and awaiting review; the backlog below tracks decisions the other architecture books have already flagged as open.
 
 ## Process
 
 1. Copy the [ADR template](../24-templates/adr-template.md).
-2. Number it sequentially (next is `ADR-0002`).
+2. Number it sequentially (next is `ADR-0004`).
 3. Set `Status: Proposed` and fill in Context, Decision, Alternatives considered, Consequences, and Review date. Add it to [Proposed ADRs](#proposed-adrs) and remove its row from the [decision backlog](#decision-backlog) below — a Proposed ADR replaces the backlog row, since the question is now tracked in one place, not two.
 4. Once agreed, set `Status: Accepted` and move it from Proposed ADRs to [Accepted ADRs](#accepted-adrs). A later decision that replaces one sets the old one's status to `Superseded` rather than deleting it — the record of *why* the old choice was made stays valuable.
 
@@ -28,6 +28,7 @@ Drafted and awaiting review/acceptance — not yet binding.
 | ADR | Title | Status |
 |---|---|---|
 | [0002](0002-use-token-based-sanctum-authentication.md) | Use Token-Based Sanctum Authentication for All Clients | Proposed |
+| [0003](0003-github-actions-required-status-checks.md) | Use GitHub Actions with Required Status Checks for Lumora Repos | Proposed |
 
 ## Decision backlog
 
@@ -44,7 +45,6 @@ Open decisions already flagged by name across the architecture books, waiting fo
 | Multi-tenancy model (single vs. per-school schema, for Phase 3 "School edition") | [Database Architecture](../09-database-architecture/index.md#privacy-and-child-safety-in-schema-design) |
 | Branching model, PR requirements, commit conventions | [Development Standards](../08-development-standards/index.md#code-style) |
 | Environment topology (count, promotion flow, what differs per environment) | [Infrastructure & DevOps](../13-infrastructure-devops/index.md#environments) |
-| CI/CD pipeline choice and merge-blocking policy | [Infrastructure & DevOps](../13-infrastructure-devops/index.md#cicd), [Testing & QA](../14-testing-qa/index.md#release-readiness) |
 | Secret manager choice | [Infrastructure & DevOps](../13-infrastructure-devops/index.md#secrets) |
 | Backup frequency, retention, and DR targets | [Infrastructure & DevOps](../13-infrastructure-devops/index.md#backups-disaster-recovery) |
 | Azure compute model (App Service / Container Apps / AKS) | [Infrastructure & DevOps](../13-infrastructure-devops/index.md#hosting-cdn-decided) |
@@ -64,7 +64,7 @@ Open decisions already flagged by name across the architecture books, waiting fo
 | Mobile framework and offline support strategy | [Mobile Platform](../19-mobile-platform/index.md#not-yet-decided) |
 | Whether other Lumora repos adopt this repo's Claude Code agent/command setup | [Claude Code Operating System](../15-claude-code-operating-system/index.md#session-rules) |
 
-Remove a row once its ADR is accepted and add the ADR to the table above instead.
+Remove a row once an ADR (even Proposed) exists to track it — see [Process](#process) above.
 
 ## Related documents
 
