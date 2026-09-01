@@ -11,7 +11,7 @@ source of truth) plus scaffolding for each application and service.
 | Directory | Status | Purpose |
 |---|---|---|
 | [`lumora-docs/`](lumora-docs/) | ✅ Populated | Single source of truth — MkDocs Material site covering vision, strategy, architecture, curriculum, ADRs, playbooks, and runbooks. |
-| [`lumora-api/`](lumora-api/) | 🟡 Placeholder | Backend API and admin — Laravel 12 + Filament. |
+| [`lumora-api/`](lumora-api/) | 🟡 Placeholder | Laravel 12 backend API. |
 | [`lumora-academy/`](lumora-academy/) | 🟡 Placeholder | Student/parent learning portal — Next.js + React. |
 | [`lumora-ai/`](lumora-ai/) | 🟡 Placeholder | AI services and the OpenAI/Claude provider abstraction layer. |
 | [`lumora-design-system/`](lumora-design-system/) | 🟡 Placeholder | Shared UI components and design tokens. |
