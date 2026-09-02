@@ -3,9 +3,12 @@
 Azure Bicep for Lumora Academy's hosting: App Service (Linux), Key Vault,
 PostgreSQL Flexible Server, and Redis Cache.
 
-**Not validated against the real Azure toolchain** — this was written
-without `az`/Bicep CLI available to compile-check it. Run `az bicep build
---file bicep/main.bicep` and review the plan before ever deploying it.
+**Validated with `az bicep build`** (Azure CLI 2.90.0, Bicep CLI 0.46.1) —
+`main.bicep` and its four modules compile to ARM JSON with zero errors or
+warnings, and `parameters/example.bicepparam` compiles against it. That
+confirms syntax and type-correctness, not that a real deployment succeeds —
+`az deployment group validate`/`--what-if` would need real Azure credentials
+this environment doesn't have. Review the plan before ever deploying it.
 
 ## What this models
 

@@ -17,7 +17,7 @@ source of truth) plus scaffolding for each application and service.
 | [`lumora-design-system/`](lumora-design-system/) | 🟡 Placeholder | Shared UI components and design tokens. |
 | [`lumora-mobile/`](lumora-mobile/) | 🟢 Scaffolded | Mobile application — React Native + Expo. |
 | [`lumora-knowledge/`](lumora-knowledge/) | 🟡 Placeholder | Curriculum content and knowledge base data. |
-| [`lumora-infrastructure/`](lumora-infrastructure/) | 🟢 Scaffolded | Azure Bicep for App Service, Key Vault, PostgreSQL, and Redis — unvalidated against the real Azure CLI, see its README. |
+| [`lumora-infrastructure/`](lumora-infrastructure/) | 🟢 Scaffolded | Azure Bicep for App Service, Key Vault, PostgreSQL, and Redis — compiles clean with `az bicep build`, not yet deployed to a real subscription. |
 | [`lumora-labs/`](lumora-labs/) | 🟡 Placeholder | Experiments and prototypes. |
 | [`lumora-public/`](lumora-public/) | 🟡 Placeholder | Public-facing site and assets. |
 
