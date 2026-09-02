@@ -9,6 +9,7 @@ use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 // Read-only: progress rows are written by the student API, not authored here.
 class LessonProgressResource extends Resource
@@ -16,6 +17,8 @@ class LessonProgressResource extends Resource
     protected static ?string $model = LessonProgress::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Lesson & Assessment Engine';
 
     public static function table(Table $table): Table
     {

@@ -12,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 // Read-only: accounts are created via the Auth/Student API flows (ADR-0019),
 // not authored here — a generic create/edit form here could produce a
@@ -21,6 +22,8 @@ class UserResource extends Resource
     protected static ?string $model = User::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Identity & Access';
 
     public static function infolist(Schema $schema): Schema
     {
