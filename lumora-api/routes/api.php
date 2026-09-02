@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\LessonController;
 use App\Http\Controllers\Api\V1\LessonProgressController;
 use App\Http\Controllers\Api\V1\StudentController;
+use App\Http\Controllers\Api\V1\StudentProgressController;
 use App\Http\Controllers\Api\V1\SubjectController;
 use App\Http\Controllers\Api\V1\TopicController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,8 @@ Route::prefix('v1')->group(function () {
 
         Route::get('students', [StudentController::class, 'index']);
         Route::post('students', [StudentController::class, 'store']);
+        Route::get('students/{student}/progress', [StudentProgressController::class, 'lessonProgress']);
+        Route::get('students/{student}/attempts', [StudentProgressController::class, 'assessmentAttempts']);
 
         Route::post('lessons/{lesson}/progress', [LessonProgressController::class, 'store']);
         Route::post('assessments/{assessment}/attempts', [AssessmentAttemptController::class, 'store']);
