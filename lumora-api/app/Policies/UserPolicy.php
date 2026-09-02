@@ -8,10 +8,12 @@ class UserPolicy
 {
     /**
      * Determine whether the user can view any models.
+     *
+     * Only Admins list all accounts — used by the Filament admin panel.
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->isAdmin();
     }
 
     /**
