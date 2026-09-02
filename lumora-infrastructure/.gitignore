@@ -1,0 +1,2 @@
+*.bicepparam
+!bicep/parameters/example.bicepparam
