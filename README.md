@@ -13,9 +13,9 @@ source of truth) plus scaffolding for each application and service.
 | [`lumora-docs/`](lumora-docs/) | ✅ Populated | Single source of truth — MkDocs Material site covering vision, strategy, architecture, curriculum, ADRs, playbooks, and runbooks. |
 | [`lumora-api/`](lumora-api/) | 🟢 Scaffolded | Laravel backend API. |
 | [`lumora-academy/`](lumora-academy/) | 🟢 Scaffolded | Student/parent learning portal — Next.js + React. |
-| [`lumora-ai/`](lumora-ai/) | 🟡 Placeholder | AI services and the OpenAI/Claude provider abstraction layer. |
+| [`lumora-ai/`](lumora-ai/) | 🟡 Placeholder | Purpose unclear — the OpenAI/Claude provider abstraction layer (AI Gateway) is architecturally a module inside `lumora-api` (see ADR-0015, ADR-0016, `07-software-architecture`), not a separate service. This folder's original description predates that decision; repurpose or remove it. |
 | [`lumora-design-system/`](lumora-design-system/) | 🟡 Placeholder | Shared UI components and design tokens. |
-| [`lumora-mobile/`](lumora-mobile/) | 🟡 Placeholder | Mobile application. |
+| [`lumora-mobile/`](lumora-mobile/) | 🟢 Scaffolded | Mobile application — React Native + Expo. |
 | [`lumora-knowledge/`](lumora-knowledge/) | 🟡 Placeholder | Curriculum content and knowledge base data. |
 | [`lumora-infrastructure/`](lumora-infrastructure/) | 🟡 Placeholder | Infrastructure as code and deployment (Azure + Cloudflare). |
 | [`lumora-labs/`](lumora-labs/) | 🟡 Placeholder | Experiments and prototypes. |
