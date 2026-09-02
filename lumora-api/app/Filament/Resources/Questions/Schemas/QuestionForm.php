@@ -8,6 +8,7 @@ use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 
 class QuestionForm
@@ -54,6 +55,10 @@ class QuestionForm
                     ->required()
                     ->disabled($locked)
                     ->dehydrated(fn () => true),
+                Toggle::make('is_rag_indexable')
+                    ->label('Include in AI Tutor knowledge (RAG)')
+                    ->helperText('On by default. Turn off for content that is live but should not be cited as standing knowledge.')
+                    ->default(true),
             ]);
     }
 }

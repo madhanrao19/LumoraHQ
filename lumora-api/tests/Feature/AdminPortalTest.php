@@ -25,6 +25,7 @@ test('every resource index page renders for an admin', function (string $page) {
     'users', 'subjects', 'grade-levels', 'topics',
     'lessons', 'questions', 'assessments',
     'lesson-progress', 'assessment-attempts',
+    'lessons/create', 'questions/create', 'assessments/create',
 ]);
 
 test('publishing a lesson supersedes the version it replaces', function () {

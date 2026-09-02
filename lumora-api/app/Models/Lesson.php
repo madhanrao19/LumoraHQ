@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ContentStatus;
+use App\Models\Concerns\SyncsRagIndex;
 use Database\Factories\LessonFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,11 +11,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-#[Fillable(['topic_id', 'supersedes_id', 'title', 'slug', 'body', 'status', 'published_at'])]
+#[Fillable(['topic_id', 'supersedes_id', 'title', 'slug', 'body', 'status', 'is_rag_indexable', 'published_at'])]
 class Lesson extends Model
 {
     /** @use HasFactory<LessonFactory> */
-    use HasFactory;
+    use HasFactory, SyncsRagIndex;
+
+    /**
+     * @var array<string, mixed>
+     */
+    protected $attributes = [
+        'is_rag_indexable' => true,
+    ];
 
     /**
      * Get the attributes that should be cast.
@@ -25,6 +33,7 @@ class Lesson extends Model
     {
         return [
             'status' => ContentStatus::class,
+            'is_rag_indexable' => 'boolean',
             'published_at' => 'datetime',
         ];
     }
