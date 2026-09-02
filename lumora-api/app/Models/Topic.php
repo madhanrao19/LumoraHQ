@@ -29,4 +29,9 @@ class Topic extends Model
     {
         return $this->hasMany(Lesson::class);
     }
+
+    public function assessments(): HasMany
+    {
+        return $this->hasMany(Assessment::class);
+    }
 }
