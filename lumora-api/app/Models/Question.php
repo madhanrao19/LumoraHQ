@@ -3,17 +3,17 @@
 namespace App\Models;
 
 use App\Enums\ContentStatus;
-use Database\Factories\LessonFactory;
+use Database\Factories\QuestionFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-#[Fillable(['topic_id', 'supersedes_id', 'title', 'slug', 'body', 'status', 'published_at'])]
-class Lesson extends Model
+#[Fillable(['topic_id', 'supersedes_id', 'type', 'prompt', 'options', 'answer', 'explanation', 'status', 'published_at'])]
+class Question extends Model
 {
-    /** @use HasFactory<LessonFactory> */
+    /** @use HasFactory<QuestionFactory> */
     use HasFactory;
 
     /**
@@ -24,6 +24,8 @@ class Lesson extends Model
     protected function casts(): array
     {
         return [
+            'options' => 'array',
+            'answer' => 'array',
             'status' => ContentStatus::class,
             'published_at' => 'datetime',
         ];
@@ -35,7 +37,7 @@ class Lesson extends Model
     }
 
     /**
-     * The published version this lesson replaced, per ADR-0024 (supersede, don't overwrite).
+     * The published version this question replaced, per ADR-0024 (supersede, don't overwrite).
      */
     public function supersedes(): BelongsTo
     {

@@ -3,15 +3,14 @@
 namespace Database\Factories;
 
 use App\Enums\ContentStatus;
-use App\Models\Lesson;
+use App\Models\Question;
 use App\Models\Topic;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
- * @extends Factory<Lesson>
+ * @extends Factory<Question>
  */
-class LessonFactory extends Factory
+class QuestionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,19 +19,21 @@ class LessonFactory extends Factory
      */
     public function definition(): array
     {
-        $title = fake()->unique()->sentence(4);
+        $options = ['A' => fake()->word(), 'B' => fake()->word(), 'C' => fake()->word()];
 
         return [
             'topic_id' => Topic::factory(),
-            'title' => $title,
-            'slug' => Str::slug($title),
-            'body' => fake()->paragraphs(3, true),
+            'type' => 'multiple_choice',
+            'prompt' => fake()->sentence().'?',
+            'options' => $options,
+            'answer' => array_key_first($options),
+            'explanation' => fake()->sentence(),
             'status' => ContentStatus::Draft,
         ];
     }
 
     /**
-     * Indicate that the lesson is published.
+     * Indicate that the question is published.
      */
     public function published(): static
     {

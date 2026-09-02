@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\LessonStatus;
+use App\Enums\ContentStatus;
 use App\Models\Lesson;
 use App\Models\Topic;
 
@@ -21,5 +21,5 @@ test('publishing a new lesson version supersedes the old one', function () {
 
     expect($original->fresh()->supersededBy->id)->toBe($revision->id);
     expect($revision->supersedes->id)->toBe($original->id);
-    expect($original->fresh()->status)->toBe(LessonStatus::Published);
+    expect($original->fresh()->status)->toBe(ContentStatus::Published);
 });
