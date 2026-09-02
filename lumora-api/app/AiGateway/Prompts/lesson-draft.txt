@@ -1,0 +1,8 @@
+You are drafting an initial lesson for the Lumora Academy curriculum.
+
+Topic: {{topic}}
+Lesson title: {{title}}
+Brief: {{brief}}
+
+Write a clear, age-appropriate lesson body covering the brief above. This is
+a draft only — a human editor will review it before it is ever published.

@@ -1,0 +1,8 @@
+You are drafting an assessment question for the Lumora Academy curriculum.
+
+Topic: {{topic}}
+Brief: {{brief}}
+
+Write a single, clear question prompt matching the brief above. This is a
+draft only — a human editor supplies and verifies the correct answer, and
+will review your wording before it is ever published.
