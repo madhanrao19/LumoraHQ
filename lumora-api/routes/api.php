@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\StudentController;
 use App\Http\Controllers\Api\V1\StudentProgressController;
 use App\Http\Controllers\Api\V1\SubjectController;
 use App\Http\Controllers\Api\V1\TopicController;
+use App\Http\Controllers\Api\V1\TutorController;
 use Illuminate\Support\Facades\Route;
 
 // Versioned from the start — ADR-0005.
@@ -31,6 +32,9 @@ Route::prefix('v1')->group(function () {
         Route::post('students', [StudentController::class, 'store']);
         Route::get('students/{student}/progress', [StudentProgressController::class, 'lessonProgress']);
         Route::get('students/{student}/attempts', [StudentProgressController::class, 'assessmentAttempts']);
+        Route::get('students/{student}/tutor-messages', [TutorController::class, 'index']);
+
+        Route::post('tutor/ask', [TutorController::class, 'ask']);
 
         Route::post('lessons/{lesson}/progress', [LessonProgressController::class, 'store']);
         Route::post('assessments/{assessment}/attempts', [AssessmentAttemptController::class, 'store']);
