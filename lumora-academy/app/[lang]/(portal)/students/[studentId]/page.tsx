@@ -8,12 +8,14 @@ import type {
   ApiCollection,
   AssessmentAttempt,
   LessonProgress,
+  TutorMessage,
 } from "../../../../lib/types";
 
 export default function StudentDetailPage() {
   const { lang, studentId } = useParams<{ lang: string; studentId: string }>();
   const [progress, setProgress] = useState<LessonProgress[] | null>(null);
   const [attempts, setAttempts] = useState<AssessmentAttempt[] | null>(null);
+  const [tutorMessages, setTutorMessages] = useState<TutorMessage[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -30,6 +32,18 @@ export default function StudentDetailPage() {
         setAttempts(attemptsRes.data);
       })
       .catch(() => setError("Could not load this student's data."));
+  }, [studentId]);
+
+  useEffect(() => {
+    apiFetch<ApiCollection<TutorMessage>>(
+      `/api/v1/students/${studentId}/tutor-messages`,
+    )
+      .then((res) => setTutorMessages([...res.data].reverse())) // newest-first -> chronological
+      .catch(() => {
+        // A 403 here (unlinked student) or any other failure just means this
+        // read-only section stays empty — it shouldn't block the progress/
+        // attempts sections above, which have their own access check.
+      });
   }, [studentId]);
 
   if (error) return <p className="text-red-600">{error}</p>;
@@ -74,6 +88,34 @@ export default function StudentDetailPage() {
             >
               Assessment #{a.assessment_id} — score:{" "}
               {a.score ?? "not yet scored"}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="flex flex-col gap-2">
+        <h2 className="text-lg font-semibold">Tutor conversation</h2>
+        {tutorMessages === null && (
+          <p className="text-zinc-500">Loading…</p>
+        )}
+        {tutorMessages && tutorMessages.length === 0 && (
+          <p className="text-zinc-500">No Tutor conversation yet.</p>
+        )}
+        <ul className="flex flex-col gap-2">
+          {tutorMessages?.map((message) => (
+            <li
+              key={message.id}
+              className="rounded border border-zinc-200 p-3 dark:border-zinc-800"
+            >
+              <p className="font-medium">{message.question}</p>
+              <p>
+                {message.answer}
+                {message.outcome !== "pass" && (
+                  <span className="ml-2 rounded bg-amber-100 px-2 py-0.5 text-xs text-amber-800 dark:bg-amber-900 dark:text-amber-200">
+                    {message.outcome === "escalate" ? "flagged for review" : message.outcome}
+                  </span>
+                )}
+              </p>
             </li>
           ))}
         </ul>
