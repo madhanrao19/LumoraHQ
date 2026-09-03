@@ -4,6 +4,10 @@
 
 Accepted
 
+## Update (2026-09-04)
+
+[ADR-0029](0029-malaysia-pdpa-applicable-regulation.md) has since resolved the applicable-regulation question this ADR deferred retention to: Malaysia's PDPA, principle-based retention (no fixed statutory period) rather than a number invented here. Same caveat as [ADR-0021](0021-audit-log-access-model.md)'s equivalent update: resolved *in principle*, not yet implemented (no PostHog integration or account-deletion feature exists yet in this codebase) and not a substitute for real legal counsel review before Phase 1 launch.
+
 ## Context
 
 [Analytics & Data](../18-analytics-data/index.md) flagged event taxonomy and retention period as open, noting retention should be resolved "alongside [Security & Privacy](../12-security-privacy/index.md#applicable-regulation)'s 'applicable privacy regulation(s)' item, not as a separate decision." That split applies here the same way it did in [ADR-0021](0021-audit-log-access-model.md): event **taxonomy** is a technical/architecture decision this project can make now; retention **duration** is a legal question that stays open until the regulation is known.
@@ -18,7 +22,7 @@ Accepted
 
 **Default anonymization:** student-linked analytics events use a non-reversible-from-analytics-alone identifier by default, not the student's real database ID or other personal fields. Any analysis requiring an actual per-student view goes through the product's own database records — already access-controlled via [ADR-0018](0018-native-policies-role-model.md)'s Policies and classified per [ADR-0020](0020-four-tier-data-classification.md) — not through the PostHog analytics pipeline.
 
-**Retention duration is explicitly not decided here** — the same reasoning as [ADR-0021](0021-audit-log-access-model.md): it depends on which privacy regulation applies, still open in [Security & Privacy](../12-security-privacy/index.md#applicable-regulation).
+**Retention duration was left open here** — the same reasoning as [ADR-0021](0021-audit-log-access-model.md): it depends on which privacy regulation applies. [ADR-0029](0029-malaysia-pdpa-applicable-regulation.md) has since resolved that (Malaysia PDPA, principle-based retention) — see Update above.
 
 ## Alternatives considered
 
@@ -39,4 +43,4 @@ Trade-offs:
 
 ## Review date
 
-Revisit retention duration once [Security & Privacy](../12-security-privacy/index.md#applicable-regulation)'s applicable-regulation item resolves. Revisit the three categories themselves once real Phase 1/2 usage reveals they're too coarse for genuine product decisions — not before.
+Retention duration is resolved in principle by [ADR-0029](0029-malaysia-pdpa-applicable-regulation.md) — see Update above; revisit once analytics is actually integrated and real legal counsel has confirmed the approach. Revisit the three categories themselves once real Phase 1/2 usage reveals they're too coarse for genuine product decisions — not before.

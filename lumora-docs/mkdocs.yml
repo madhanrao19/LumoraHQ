@@ -35,11 +35,15 @@ nav:
   - Database Architecture: 09-database-architecture/index.md
   - API Architecture: 10-api-architecture/index.md
   - UI/UX Design System: 11-ui-ux-design-system/index.md
-  - Security & Privacy: 12-security-privacy/index.md
+  - Security & Privacy:
+      - 12-security-privacy/index.md
+      - "PDPA Legal Review Checklist": 12-security-privacy/pdpa-legal-review-checklist.md
   - Infrastructure & DevOps: 13-infrastructure-devops/index.md
   - Testing & QA: 14-testing-qa/index.md
   - Claude Code Operating System: 15-claude-code-operating-system/index.md
-  - AI Agents Handbook: 16-ai-agents-handbook/index.md
+  - AI Agents Handbook:
+      - 16-ai-agents-handbook/index.md
+      - "Tutor Safety Policy Questionnaire": 16-ai-agents-handbook/tutor-safety-policy-questionnaire.md
   - Content Operations: 17-content-operations/index.md
   - Analytics & Data: 18-analytics-data/index.md
   - Mobile Platform: 19-mobile-platform/index.md

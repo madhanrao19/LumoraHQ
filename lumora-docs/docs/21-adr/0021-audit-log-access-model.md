@@ -4,6 +4,10 @@
 
 Accepted
 
+## Update (2026-09-04)
+
+[ADR-0029](0029-malaysia-pdpa-applicable-regulation.md) has since resolved the applicable-regulation question this ADR deferred retention duration to: Malaysia's PDPA, with a principle-based retention approach rather than a fixed statutory period (PDPA's Retention Principle doesn't specify one) — retain while the associated account is active, purge Sensitive/Child-classified data within a pragmatic bounded window (ADR-0029 suggests 30–90 days as an example, not a legal minimum) after account deletion. Retention duration is no longer *legally unknown*, but it is still not *implemented* — no account-deletion feature exists yet to purge on — and ADR-0029 is explicit that it's an interim architectural position, not a substitute for real legal counsel review before Phase 1 launch. Treat the "explicitly not decided" framing below as superseded by this update; the rest of this ADR (the access-control decision) is unaffected and still current.
+
 ## Context
 
 [Security & Privacy](../12-security-privacy/index.md#audit-accountability) states every AI Gateway request/response is logged ([AI Safety Principles](../06-ai-development-bible/ai-safety-principles.md) requirement 3) but leaves both **who can read that log** and **how long it's retained** undecided. Three things now exist to build access on: [ADR-0018](0018-native-policies-role-model.md) decided authorization via native Laravel Policies checking role and relationship; [ADR-0019](0019-parent-initiated-child-accounts.md) established the parent-student link table that requirement 6 (parent visibility) depends on; [ADR-0020](0020-four-tier-data-classification.md) classifies AI interaction logs as Sensitive/Child data.
@@ -37,4 +41,4 @@ Trade-offs:
 
 ## Review date
 
-Revisit retention duration once [Security & Privacy](../12-security-privacy/index.md#applicable-regulation)'s "applicable privacy regulation(s)" item is resolved. The access-control decision here doesn't need revisiting on that basis — it's independent of jurisdiction.
+Retention duration is resolved in principle by [ADR-0029](0029-malaysia-pdpa-applicable-regulation.md) — see Update above. Revisit once an account-deletion feature exists (to build the actual purge mechanism) and once real legal counsel has confirmed the approach before Phase 1 launch. The access-control decision here doesn't need revisiting on either basis — it's independent of jurisdiction and of the deletion feature.
