@@ -26,6 +26,14 @@ jobs:
           cache-dependency-path: lumora-mobile/package-lock.json
 
       - run: npm ci
+
+      # expo-env.d.ts is intentionally gitignored (Expo's own convention —
+      # "should be in your git ignore", auto-restored by the Expo CLI on
+      # first run). Its content is fixed, not project-specific, so write it
+      # directly rather than starting a dev server in CI just to have Expo
+      # regenerate it.
+      - run: echo '/// <reference types="expo/types" />' > expo-env.d.ts
+
       - run: npx tsc --noEmit
       - run: npm run lint
       - run: npm test
