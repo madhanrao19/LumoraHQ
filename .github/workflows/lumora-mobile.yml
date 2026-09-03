@@ -1,0 +1,30 @@
+name: lumora-mobile CI
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'lumora-mobile/**' ]
+  pull_request:
+    branches: [ main ]
+    paths: [ 'lumora-mobile/**' ]
+
+defaults:
+  run:
+    working-directory: lumora-mobile
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: lumora-mobile/package-lock.json
+
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npm run lint
+      - run: npm test
