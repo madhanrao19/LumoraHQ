@@ -4,6 +4,10 @@
 
 Accepted
 
+## Update (2026-09-04)
+
+The applicable-regulation question this ADR's trade-offs deferred to has resolved: [ADR-0029](0029-malaysia-pdpa-applicable-regulation.md) confirms Malaysia's PDPA, and states directly that PDPA has no distinct children's-data provision beyond its general obligations — the existing child-safety design (this four-tier scheme included) already exceeds what PDPA itself requires. No additional tier or sub-category is needed on PDPA's account. As with ADR-0029 generally, this is a solid interim conclusion, not a substitute for real legal counsel confirming it before Phase 1 launch.
+
 ## Context
 
 [Database Architecture](../09-database-architecture/index.md#privacy-and-child-safety-in-schema-design) and [Security & Privacy](../12-security-privacy/index.md#privacy-data-protection) both flagged a formal data classification scheme as open — informally referring to "personal vs. sensitive/child-related" without a decided, checkable definition. [ADR-0019](0019-parent-initiated-child-accounts.md) now gives this a concrete data model to classify against (parent and student accounts, a parent-student link table), rather than an abstract problem.
@@ -44,4 +48,4 @@ Trade-offs:
 
 ## Review date
 
-Revisit once [Security & Privacy](../12-security-privacy/index.md#applicable-regulation)'s "applicable privacy regulation(s)" item is resolved — the specific regime may require additional tiers or handling this general scheme doesn't yet anticipate.
+Resolved — see Update above. Revisit only if Lumora's target market ever expands beyond Malaysia (the same trigger [ADR-0029](0029-malaysia-pdpa-applicable-regulation.md) itself names), since a new regime could require tiers this scheme doesn't anticipate.

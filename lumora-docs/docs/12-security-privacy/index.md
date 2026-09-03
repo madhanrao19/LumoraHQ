@@ -41,7 +41,7 @@ Directly from the [Constitution](../00-constitution/index.md#non-negotiable-prin
 
 ## Applicable regulation
 
-[ADR-0029](../21-adr/0029-malaysia-pdpa-applicable-regulation.md) confirms Malaysia's PDPA (2010, as amended 2024) as the applicable regime, given Lumora Academy's Malaysia-only target market — resolving what had been the single most consequential open item in this book, since it also unblocked audit and analytics retention. This isn't a substitute for formal legal counsel review before Phase 1 launch, and needs revisiting if the target market ever expands beyond Malaysia — see the ADR for both caveats.
+[ADR-0029](../21-adr/0029-malaysia-pdpa-applicable-regulation.md) confirms Malaysia's PDPA (2010, as amended 2024) as the applicable regime, given Lumora Academy's Malaysia-only target market — resolving what had been the single most consequential open item in this book, since it also unblocked audit and analytics retention. This isn't a substitute for formal legal counsel review before Phase 1 launch, and needs revisiting if the target market ever expands beyond Malaysia — see the ADR for both caveats. The [PDPA Legal Review Checklist](pdpa-legal-review-checklist.md) is the concrete list of what that review needs to confirm.
 
 ## Scope boundaries
 

@@ -4,6 +4,10 @@
 
 Accepted
 
+## Update (2026-09-04)
+
+This ADR's trigger (b) — the applicable-regulation item — has resolved: [ADR-0029](0029-malaysia-pdpa-applicable-regulation.md) confirms Malaysia's PDPA, whose Retention Principle is disposal-when-no-longer-necessary, not a mandated minimum retention period. That resolution argues *against* adopting Long-Term Retention on regulatory grounds, not for it — PDPA doesn't create a compliance requirement LTR would satisfy. Point 3's conclusion (don't adopt LTR yet) stands, now on firmer footing rather than pending. Trigger (a) — an actual deployment region — remains unchosen (no infrastructure has been deployed), so it's still the live open condition, not (b).
+
 ## Context
 
 [Infrastructure & DevOps](../13-infrastructure-devops/index.md#backups-disaster-recovery) already narrowed the scope, per [Database Architecture](../09-database-architecture/index.md#data-stores-and-their-roles): PostgreSQL is the only store needing a real backup/DR policy (it's the sole source of truth); Redis and Meilisearch are disposable/reconstructable; S3-compatible storage needs its own, lighter retention approach since it holds referenced content, not relational data. Frequency, retention window, and DR targets were flagged as fully open.
@@ -39,4 +43,4 @@ Trade-offs:
 
 ## Review date
 
-Revisit once (a) an actual Azure deployment region is chosen, or (b) [Security & Privacy](../12-security-privacy/index.md#applicable-regulation)'s "applicable privacy regulation(s)" item is resolved — either could independently justify adding geo-redundant backup and/or Long-Term Retention.
+Trigger (b) has resolved — see Update above; it did not end up justifying LTR. Revisit once an actual Azure deployment region is chosen (trigger (a), still open) — that could still justify geo-redundant backup.
