@@ -14,7 +14,7 @@ defaults:
     working-directory: lumora-mobile
 
 jobs:
-  test:
+  lumora-mobile-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
