@@ -7,6 +7,7 @@ on:
   pull_request:
     branches: [ main ]
     paths: [ 'lumora-api/**' ]
+  workflow_dispatch: {}
 
 defaults:
   run:
