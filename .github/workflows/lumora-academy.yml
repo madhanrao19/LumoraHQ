@@ -1,21 +1,34 @@
 name: lumora-academy CI
 
+# See lumora-api.yml for why there's no top-level `paths:` filter.
 on:
   push:
     branches: [ main ]
-    paths: [ 'lumora-academy/**' ]
   pull_request:
     branches: [ main ]
-    paths: [ 'lumora-academy/**' ]
   workflow_dispatch: {}
 
-defaults:
-  run:
-    working-directory: lumora-academy
-
 jobs:
-  lumora-academy-test:
+  changes:
     runs-on: ubuntu-latest
+    outputs:
+      relevant: ${{ steps.filter.outputs.relevant }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            relevant:
+              - 'lumora-academy/**'
+
+  lumora-academy-test:
+    needs: changes
+    if: needs.changes.outputs.relevant == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: lumora-academy
     steps:
       - uses: actions/checkout@v4
 
