@@ -64,14 +64,15 @@ export default function TopicPage() {
         {assessments.length === 0 && (
           <p className="text-zinc-500">No published assessments yet.</p>
         )}
-        {/* Browsing only — taking an assessment is a separate, later slice. */}
         <ul className="flex flex-col gap-2">
           {assessments.map((assessment) => (
-            <li
-              key={assessment.id}
-              className="rounded border border-zinc-200 p-3 dark:border-zinc-800"
-            >
-              {assessment.title}
+            <li key={assessment.id}>
+              <Link
+                href={`/${lang}/assessments/${assessment.id}`}
+                className="block rounded border border-zinc-200 p-3 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-900"
+              >
+                {assessment.title}
+              </Link>
             </li>
           ))}
         </ul>

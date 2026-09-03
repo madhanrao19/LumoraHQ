@@ -53,11 +53,10 @@ export default function TopicScreen() {
         {assessments.length === 0 && (
           <Text style={portalStyles.muted}>No published assessments yet.</Text>
         )}
-        {/* Browsing only — taking an assessment is a separate, later slice. */}
         {assessments.map((assessment) => (
-          <View key={assessment.id} style={portalStyles.card}>
-            <Text>{assessment.title}</Text>
-          </View>
+          <Link key={assessment.id} href={`/assessments/${assessment.id}`} style={portalStyles.card}>
+            {assessment.title}
+          </Link>
         ))}
       </View>
     </ScrollView>

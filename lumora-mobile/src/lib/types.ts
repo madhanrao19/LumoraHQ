@@ -36,12 +36,23 @@ export type Lesson = {
   published_at: string | null;
 };
 
+// `options` is a free-form key => label map (e.g. { A: "Paris", B: "London" })
+// for multiple-choice-style questions, or null for free-text ones — `type`
+// itself is an unstandardized free string (see QuestionForm.php), so
+// rendering branches on `options` shape, not `type` value.
+export type Question = {
+  id: number;
+  type: string;
+  prompt: string;
+  options: Record<string, string> | null;
+};
+
 export type Assessment = {
   id: number;
   topic_id: number;
   title: string;
   published_at: string | null;
-  questions: unknown[];
+  questions: Question[];
 };
 
 export type LessonProgress = {
@@ -53,7 +64,11 @@ export type LessonProgress = {
 export type AssessmentAttempt = {
   id: number;
   assessment_id: number;
-  responses: Record<string, unknown>;
+  // Always ships as a list on the wire, not a { questionId: answer } object —
+  // Laravel's JsonResource::filter() reindexes any nested array whose keys
+  // are all numeric (question IDs always are), verified against a live
+  // response. Untyped further since nothing here reads it.
+  responses: unknown[];
   score: number | null;
   completed_at: string | null;
 };
