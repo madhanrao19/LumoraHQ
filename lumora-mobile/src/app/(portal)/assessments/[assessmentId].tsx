@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { FormField } from '@/components/form-field';
+import { Zinc } from '@/constants/colors';
 import { portalStyles } from '@/constants/portal-styles';
 import { ApiError, apiFetch } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
@@ -140,9 +141,9 @@ const styles = StyleSheet.create({
   options: { gap: 8 },
   option: {
     borderWidth: 1,
-    borderColor: '#e4e4e7',
+    borderColor: Zinc[200],
     borderRadius: 6,
     padding: 10,
   },
-  optionSelected: { borderColor: '#18181b', backgroundColor: '#f4f4f5' },
+  optionSelected: { borderColor: Zinc[900], backgroundColor: Zinc[100] },
 });
