@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { apiFetch } from "../../../../lib/api";
+import { useAuth } from "../../../../lib/auth-context";
 import type {
   AiGatewayLog,
   ApiCollection,
@@ -25,6 +26,7 @@ function truncateOutput(output: string): string {
 
 export default function StudentDetailPage() {
   const { lang, studentId } = useParams<{ lang: string; studentId: string }>();
+  const { user } = useAuth();
   const [progress, setProgress] = useState<LessonProgress[] | null>(null);
   const [attempts, setAttempts] = useState<AssessmentAttempt[] | null>(null);
   const [tutorMessages, setTutorMessages] = useState<TutorMessage[] | null>(null);
@@ -60,17 +62,24 @@ export default function StudentDetailPage() {
   }, [studentId]);
 
   useEffect(() => {
+    // Gated to Parent viewers only — UserPolicy::viewAuditLog excludes
+    // Students even for their own ID (ADR-0021), and a Student CAN
+    // legitimately reach their own /students/{id} page (progress/attempts
+    // allow self-view). Without this check, a self-viewing Student would
+    // see an "Audit log" heading stuck in permanent "Loading…" from the
+    // 403 below — revealing the oversight feature exists, which defeats
+    // the point of excluding them from it in the first place.
+    if (user?.role !== "parent") return;
+
     apiFetch<ApiCollection<AiGatewayLog>>(
       `/api/v1/students/${studentId}/audit-logs`,
     )
       .then((res) => setAuditLogs(res.data)) // already newest-first from the API
       .catch(() => {
-        // A 403 here (Student token, or an unlinked Parent) is expected and
-        // must never surface as a distinct error — UserPolicy::viewAuditLog
-        // deliberately excludes Students from this, even for their own ID
-        // (ADR-0021). Same silent-empty precedent as Tutor conversation above.
+        // An unlinked Parent gets a 403 here too — same silent-empty
+        // precedent as the Tutor conversation section above.
       });
-  }, [studentId]);
+  }, [studentId, user]);
 
   if (error) return <p className="text-red-600">{error}</p>;
   if (!progress || !attempts) return <p className="text-zinc-500">Loading…</p>;
@@ -147,30 +156,32 @@ export default function StudentDetailPage() {
         </ul>
       </section>
 
-      <section className="flex flex-col gap-2">
-        <h2 className="text-lg font-semibold">Audit log</h2>
-        {auditLogs === null && <p className="text-zinc-500">Loading…</p>}
-        {auditLogs && auditLogs.length === 0 && (
-          <p className="text-zinc-500">No AI Gateway activity yet.</p>
-        )}
-        <ul className="flex flex-col gap-2">
-          {auditLogs?.map((log) => (
-            <li
-              key={log.id}
-              className="rounded border border-zinc-200 p-3 text-sm dark:border-zinc-800"
-            >
-              <p className="font-medium">
-                {log.prompt_key} — {log.tier} / {log.provider}
-                {log.model ? ` / ${log.model}` : ""} — {log.status}
-              </p>
-              <p className="text-zinc-500">
-                {new Date(log.created_at).toLocaleString()}
-              </p>
-              <p>{truncateOutput(log.output)}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
+      {user?.role === "parent" && (
+        <section className="flex flex-col gap-2">
+          <h2 className="text-lg font-semibold">Audit log</h2>
+          {auditLogs === null && <p className="text-zinc-500">Loading…</p>}
+          {auditLogs && auditLogs.length === 0 && (
+            <p className="text-zinc-500">No AI Gateway activity yet.</p>
+          )}
+          <ul className="flex flex-col gap-2">
+            {auditLogs?.map((log) => (
+              <li
+                key={log.id}
+                className="rounded border border-zinc-200 p-3 text-sm dark:border-zinc-800"
+              >
+                <p className="font-medium">
+                  {log.prompt_key} — {log.tier} / {log.provider}
+                  {log.model ? ` / ${log.model}` : ""} — {log.status}
+                </p>
+                <p className="text-zinc-500">
+                  {new Date(log.created_at).toLocaleString()}
+                </p>
+                <p>{truncateOutput(log.output)}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   );
 }

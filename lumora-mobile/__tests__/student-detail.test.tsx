@@ -13,12 +13,20 @@ jest.mock('@/lib/api', () => ({
   apiFetch: jest.fn(),
 }));
 
+const mockUseAuth = jest.fn();
+jest.mock('@/lib/auth-context', () => ({
+  useAuth: () => mockUseAuth(),
+}));
+
 import { apiFetch } from '@/lib/api';
 
 const mockedApiFetch = apiFetch as jest.Mock;
 
 beforeEach(() => {
   mockedApiFetch.mockReset();
+  mockUseAuth.mockReturnValue({
+    user: { id: 1, name: 'Pat Parent', email: 'pat@example.com', role: 'parent' },
+  });
 });
 
 test("renders the student's Tutor history in chronological order, read-only (no input)", async () => {
@@ -92,4 +100,25 @@ test('does not crash when the Tutor conversation and audit-log fetches 403 for a
 
   // Requirement #2: the error state is the whole page — no audit data leaks.
   expect(screen.queryByText('Audit log')).toBeNull();
+});
+
+test('never shows the Audit log section — or fetches it — when a Student views their own screen', async () => {
+  mockUseAuth.mockReturnValue({
+    user: { id: 5, name: 'Stu Dent', email: 'stu@example.com', role: 'student' },
+  });
+  mockedApiFetch
+    .mockResolvedValueOnce({ data: [] }) // GET progress (self-view allowed)
+    .mockResolvedValueOnce({ data: [] }) // GET attempts (self-view allowed)
+    .mockResolvedValueOnce({ data: [] }); // GET tutor-messages (self-view allowed)
+    // No audit-logs mock queued — a call to it here throws (undefined
+    // resolved value), which is exactly the point of this test.
+
+  await render(<StudentDetailScreen />);
+
+  expect(await screen.findByText('No lessons completed yet.')).toBeTruthy();
+
+  expect(screen.queryByText('Audit log')).toBeNull();
+  expect(mockedApiFetch).not.toHaveBeenCalledWith(
+    expect.stringContaining('/audit-logs'),
+  );
 });
