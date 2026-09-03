@@ -17,7 +17,11 @@ class AssessmentAttemptResource extends JsonResource
         return [
             'id' => $this->id,
             'assessment_id' => $this->assessment_id,
-            'responses' => $this->responses,
+            // `responses` is keyed by question ID (e.g. [3 => "A"]). Cast to
+            // object so it always serializes as a JSON object — a plain
+            // array here gets silently reindexed to a JSON list by the
+            // resource pipeline, losing the question-ID mapping.
+            'responses' => (object) $this->responses,
             'score' => $this->score,
             'completed_at' => $this->completed_at,
         ];
