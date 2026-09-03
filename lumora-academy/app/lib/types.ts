@@ -86,5 +86,19 @@ export type TutorMessage = {
   created_at: string;
 };
 
+// Parent-only (never Student — see UserPolicy::viewAuditLog / ADR-0021).
+// `output` for a tutor-answer entry may be the pre-safety-substitution
+// answer; that's intentional oversight visibility, not a bug to hide.
+export type AiGatewayLog = {
+  id: number;
+  tier: string;
+  provider: string;
+  model: string | null;
+  prompt_key: string;
+  output: string;
+  status: string;
+  created_at: string;
+};
+
 export type ApiCollection<T> = { data: T[] };
 export type ApiResource<T> = { data: T };

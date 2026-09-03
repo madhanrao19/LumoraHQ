@@ -26,7 +26,33 @@ describe("StudentDetailPage — Tutor conversation (read-only, Parent view)", ()
             { id: 1, question: "First question", answer: "First answer", outcome: "escalate", created_at: "2026-01-01T00:00:00Z" },
           ],
         }),
-      ); // GET tutor-messages
+      ) // GET tutor-messages
+      .mockResolvedValueOnce(
+        jsonResponse(200, {
+          data: [
+            {
+              id: 10,
+              tier: "premium",
+              provider: "openai",
+              model: "gpt-4o",
+              prompt_key: "tutor-answer",
+              output: "x".repeat(250),
+              status: "ok",
+              created_at: "2026-01-03T00:00:00Z",
+            },
+            {
+              id: 9,
+              tier: "free",
+              provider: "openai",
+              model: null,
+              prompt_key: "lesson-summary",
+              output: "short output",
+              status: "ok",
+              created_at: "2026-01-02T12:00:00Z",
+            },
+          ],
+        }),
+      ); // GET audit-logs (linked Parent, populated — requirement #1)
 
     render(<StudentDetailPage />);
 
@@ -44,19 +70,30 @@ describe("StudentDetailPage — Tutor conversation (read-only, Parent view)", ()
 
     expect(screen.queryByLabelText("Ask the Tutor")).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Send" })).not.toBeInTheDocument();
+
+    // Audit log section: populated for a linked Parent, output truncated and
+    // obviously marked as such, model-null entries render without crashing.
+    await waitFor(() => expect(screen.getByText(/tutor-answer/)).toBeInTheDocument());
+    expect(screen.getByText(/lesson-summary/)).toBeInTheDocument();
+    expect(screen.getByText(/\[truncated\]/)).toBeInTheDocument();
+    expect(screen.getByText("short output")).toBeInTheDocument();
   });
 
-  it("does not crash when the Tutor conversation fetch 403s for an unlinked student", async () => {
+  it("does not crash when the Tutor conversation and audit-log fetches 403 for an unlinked student", async () => {
     const fetchMock = global.fetch as jest.Mock;
     fetchMock
       .mockResolvedValueOnce(jsonResponse(403, { message: "Forbidden" })) // GET progress
       .mockResolvedValueOnce(jsonResponse(403, { message: "Forbidden" })) // GET attempts
-      .mockResolvedValueOnce(jsonResponse(403, { message: "Forbidden" })); // GET tutor-messages
+      .mockResolvedValueOnce(jsonResponse(403, { message: "Forbidden" })) // GET tutor-messages
+      .mockResolvedValueOnce(jsonResponse(403, { message: "Forbidden" })); // GET audit-logs
 
     render(<StudentDetailPage />);
 
     await waitFor(() =>
       expect(screen.getByText("Could not load this student's data.")).toBeInTheDocument(),
     );
+
+    // Requirement #2: the error state is the whole page — no audit data leaks.
+    expect(screen.queryByText("Audit log")).not.toBeInTheDocument();
   });
 });

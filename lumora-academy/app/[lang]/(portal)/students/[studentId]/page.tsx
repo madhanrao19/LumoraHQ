@@ -5,17 +5,30 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { apiFetch } from "../../../../lib/api";
 import type {
+  AiGatewayLog,
   ApiCollection,
   AssessmentAttempt,
   LessonProgress,
   TutorMessage,
 } from "../../../../lib/types";
 
+// Filament's admin resource (AiGatewayLogInfolist) shows full output only in
+// a detail view and omits it from the list; this is a lighter equivalent for
+// a first version — truncate inline, no separate detail route.
+const AUDIT_OUTPUT_PREVIEW_LENGTH = 200;
+
+function truncateOutput(output: string): string {
+  return output.length > AUDIT_OUTPUT_PREVIEW_LENGTH
+    ? `${output.slice(0, AUDIT_OUTPUT_PREVIEW_LENGTH)}… [truncated]`
+    : output;
+}
+
 export default function StudentDetailPage() {
   const { lang, studentId } = useParams<{ lang: string; studentId: string }>();
   const [progress, setProgress] = useState<LessonProgress[] | null>(null);
   const [attempts, setAttempts] = useState<AssessmentAttempt[] | null>(null);
   const [tutorMessages, setTutorMessages] = useState<TutorMessage[] | null>(null);
+  const [auditLogs, setAuditLogs] = useState<AiGatewayLog[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -43,6 +56,19 @@ export default function StudentDetailPage() {
         // A 403 here (unlinked student) or any other failure just means this
         // read-only section stays empty — it shouldn't block the progress/
         // attempts sections above, which have their own access check.
+      });
+  }, [studentId]);
+
+  useEffect(() => {
+    apiFetch<ApiCollection<AiGatewayLog>>(
+      `/api/v1/students/${studentId}/audit-logs`,
+    )
+      .then((res) => setAuditLogs(res.data)) // already newest-first from the API
+      .catch(() => {
+        // A 403 here (Student token, or an unlinked Parent) is expected and
+        // must never surface as a distinct error — UserPolicy::viewAuditLog
+        // deliberately excludes Students from this, even for their own ID
+        // (ADR-0021). Same silent-empty precedent as Tutor conversation above.
       });
   }, [studentId]);
 
@@ -116,6 +142,31 @@ export default function StudentDetailPage() {
                   </span>
                 )}
               </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="flex flex-col gap-2">
+        <h2 className="text-lg font-semibold">Audit log</h2>
+        {auditLogs === null && <p className="text-zinc-500">Loading…</p>}
+        {auditLogs && auditLogs.length === 0 && (
+          <p className="text-zinc-500">No AI Gateway activity yet.</p>
+        )}
+        <ul className="flex flex-col gap-2">
+          {auditLogs?.map((log) => (
+            <li
+              key={log.id}
+              className="rounded border border-zinc-200 p-3 text-sm dark:border-zinc-800"
+            >
+              <p className="font-medium">
+                {log.prompt_key} — {log.tier} / {log.provider}
+                {log.model ? ` / ${log.model}` : ""} — {log.status}
+              </p>
+              <p className="text-zinc-500">
+                {new Date(log.created_at).toLocaleString()}
+              </p>
+              <p>{truncateOutput(log.output)}</p>
             </li>
           ))}
         </ul>
