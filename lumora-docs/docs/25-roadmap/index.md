@@ -17,8 +17,8 @@
 - Lesson engine
 - Question bank
 - Assessment engine
-- Student portal
-- Parent portal
+- Student portal — ✅ done (auth, curriculum browsing, lesson completion, assessment-taking, AI Tutor chat — [PR #4](https://github.com/madhanrao19/LumoraHQ/pull/4), [#6](https://github.com/madhanrao19/LumoraHQ/pull/6), [#8](https://github.com/madhanrao19/LumoraHQ/pull/8))
+- Parent portal — ✅ done (student management, progress/attempts, Tutor conversation and AI Gateway audit-log oversight — [PR #4](https://github.com/madhanrao19/LumoraHQ/pull/4), [#8](https://github.com/madhanrao19/LumoraHQ/pull/8), [#9](https://github.com/madhanrao19/LumoraHQ/pull/9))
 - Admin portal
 
 ## Phase 2 — AI Platform
@@ -33,7 +33,7 @@
 
 ## Phase 3 — Expansion
 
-- Mobile apps
+- Mobile apps — ✅ done, same feature set as the web student/parent portal ([ADR-0026](../21-adr/0026-react-native-expo-mobile.md); [PR #5](https://github.com/madhanrao19/LumoraHQ/pull/5), [#6](https://github.com/madhanrao19/LumoraHQ/pull/6), [#8](https://github.com/madhanrao19/LumoraHQ/pull/8), [#9](https://github.com/madhanrao19/LumoraHQ/pull/9))
 - Teacher tools
 - School edition
 - Marketplace
