@@ -73,5 +73,19 @@ export type AssessmentAttempt = {
   completed_at: string | null;
 };
 
+// outcome is display-only (e.g. a "flagged for review" badge on Escalate) —
+// `answer` is always the safe, final text to render, already substituted
+// server-side by TutorAgent for any non-Pass outcome. Never branch rendering
+// of `answer` itself on `outcome`.
+export type TutorOutcome = "pass" | "redirect" | "block" | "escalate";
+
+export type TutorMessage = {
+  id: number;
+  question: string;
+  answer: string;
+  outcome: TutorOutcome;
+  created_at: string;
+};
+
 export type ApiCollection<T> = { data: T[] };
 export type ApiResource<T> = { data: T };

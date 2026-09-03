@@ -44,6 +44,11 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
               My students
             </Link>
           )}
+          {user.role === "student" && (
+            <Link href={`/${lang}/tutor`} className="hover:underline">
+              Tutor
+            </Link>
+          )}
         </div>
         <div className="flex items-center gap-3 text-sm">
           <span className="text-zinc-600 dark:text-zinc-400">

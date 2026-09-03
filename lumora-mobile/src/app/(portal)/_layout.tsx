@@ -40,6 +40,11 @@ export default function PortalLayout() {
               My students
             </Link>
           )}
+          {user.role === 'student' && (
+            <Link href="/tutor" style={styles.navLink}>
+              Tutor
+            </Link>
+          )}
         </View>
         <View style={styles.navRight}>
           <Text style={styles.muted}>
