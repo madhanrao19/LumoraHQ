@@ -29,7 +29,7 @@
 - AI lesson drafting
 - AI quiz drafting
 - AI tutor with safety guardrails — ✅ done ([ADR-0023](../21-adr/0023-tutor-realtime-escalation-mechanism.md), [ADR-0028](../21-adr/0028-tutor-scope-defined-by-rag-grounding.md))
-- AI audit logs
+- AI audit logs — ✅ done ([ADR-0021](../21-adr/0021-audit-log-access-model.md))
 
 ## Phase 3 — Expansion
 
