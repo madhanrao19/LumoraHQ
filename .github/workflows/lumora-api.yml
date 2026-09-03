@@ -1,21 +1,39 @@
 name: lumora-api CI
 
+# No top-level `paths:` filter — a workflow that never triggers posts no
+# status at all, and a required check with no status blocks merge forever
+# (confirmed empirically). Instead the workflow always runs, and the real
+# job is skipped via a job-level `if:` when nothing relevant changed — a
+# skipped job still posts a "skipped" check, which GitHub's required-status-
+# checks accepts as satisfying the requirement.
 on:
   push:
     branches: [ main ]
-    paths: [ 'lumora-api/**' ]
   pull_request:
     branches: [ main ]
-    paths: [ 'lumora-api/**' ]
   workflow_dispatch: {}
 
-defaults:
-  run:
-    working-directory: lumora-api
-
 jobs:
-  lumora-api-test:
+  changes:
     runs-on: ubuntu-latest
+    outputs:
+      relevant: ${{ steps.filter.outputs.relevant }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            relevant:
+              - 'lumora-api/**'
+
+  lumora-api-test:
+    needs: changes
+    if: needs.changes.outputs.relevant == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: lumora-api
     steps:
       - uses: actions/checkout@v4
 

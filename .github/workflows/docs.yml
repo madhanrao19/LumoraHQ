@@ -1,21 +1,34 @@
 name: Build Docs
 
+# See lumora-api.yml for why there's no top-level `paths:` filter.
 on:
   push:
     branches: [ main, master ]
-    paths: [ 'lumora-docs/**' ]
   pull_request:
     branches: [ main, master ]
-    paths: [ 'lumora-docs/**' ]
   workflow_dispatch: {}
 
-defaults:
-  run:
-    working-directory: lumora-docs
-
 jobs:
-  build:
+  changes:
     runs-on: ubuntu-latest
+    outputs:
+      relevant: ${{ steps.filter.outputs.relevant }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            relevant:
+              - 'lumora-docs/**'
+
+  build:
+    needs: changes
+    if: needs.changes.outputs.relevant == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: lumora-docs
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

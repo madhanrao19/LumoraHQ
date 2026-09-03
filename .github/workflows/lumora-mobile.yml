@@ -1,21 +1,34 @@
 name: lumora-mobile CI
 
+# See lumora-api.yml for why there's no top-level `paths:` filter.
 on:
   push:
     branches: [ main ]
-    paths: [ 'lumora-mobile/**' ]
   pull_request:
     branches: [ main ]
-    paths: [ 'lumora-mobile/**' ]
   workflow_dispatch: {}
 
-defaults:
-  run:
-    working-directory: lumora-mobile
-
 jobs:
-  lumora-mobile-test:
+  changes:
     runs-on: ubuntu-latest
+    outputs:
+      relevant: ${{ steps.filter.outputs.relevant }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            relevant:
+              - 'lumora-mobile/**'
+
+  lumora-mobile-test:
+    needs: changes
+    if: needs.changes.outputs.relevant == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: lumora-mobile
     steps:
       - uses: actions/checkout@v4
 
