@@ -5,13 +5,33 @@ import { ScrollView, Text, View } from 'react-native';
 
 import { portalStyles } from '@/constants/portal-styles';
 import { apiFetch } from '@/lib/api';
-import type { ApiCollection, AssessmentAttempt, LessonProgress, TutorMessage } from '@/lib/types';
+import { useAuth } from '@/lib/auth-context';
+import type {
+  AiGatewayLog,
+  ApiCollection,
+  AssessmentAttempt,
+  LessonProgress,
+  TutorMessage,
+} from '@/lib/types';
+
+// Filament's admin resource (AiGatewayLogInfolist) shows full output only in
+// a detail view and omits it from the list; this is a lighter equivalent for
+// a first version — truncate inline, no separate detail route.
+const AUDIT_OUTPUT_PREVIEW_LENGTH = 200;
+
+function truncateOutput(output: string): string {
+  return output.length > AUDIT_OUTPUT_PREVIEW_LENGTH
+    ? `${output.slice(0, AUDIT_OUTPUT_PREVIEW_LENGTH)}… [truncated]`
+    : output;
+}
 
 export default function StudentDetailScreen() {
   const { studentId } = useLocalSearchParams<{ studentId: string }>();
+  const { user } = useAuth();
   const [progress, setProgress] = useState<LessonProgress[] | null>(null);
   const [attempts, setAttempts] = useState<AssessmentAttempt[] | null>(null);
   const [tutorMessages, setTutorMessages] = useState<TutorMessage[] | null>(null);
+  const [auditLogs, setAuditLogs] = useState<AiGatewayLog[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -35,6 +55,24 @@ export default function StudentDetailScreen() {
         // attempts sections above, which have their own access check.
       });
   }, [studentId]);
+
+  useEffect(() => {
+    // Gated to Parent viewers only — UserPolicy::viewAuditLog excludes
+    // Students even for their own ID (ADR-0021), and a Student CAN
+    // legitimately reach their own /students/{id} screen (progress/attempts
+    // allow self-view). Without this check, a self-viewing Student would
+    // see an "Audit log" heading stuck in permanent "Loading…" from the
+    // 403 below — revealing the oversight feature exists, which defeats
+    // the point of excluding them from it in the first place.
+    if (user?.role !== 'parent') return;
+
+    apiFetch<ApiCollection<AiGatewayLog>>(`/api/v1/students/${studentId}/audit-logs`)
+      .then((res) => setAuditLogs(res.data)) // already newest-first from the API
+      .catch(() => {
+        // An unlinked Parent gets a 403 here too — same silent-empty
+        // precedent as the Tutor conversation section above.
+      });
+  }, [studentId, user]);
 
   if (error) return <Text style={portalStyles.error}>{error}</Text>;
   if (!progress || !attempts) {
@@ -89,6 +127,26 @@ export default function StudentDetailScreen() {
           </View>
         ))}
       </View>
+
+      {user?.role === 'parent' && (
+        <View style={portalStyles.container}>
+          <Text style={portalStyles.subheading}>Audit log</Text>
+          {auditLogs === null && <Text style={portalStyles.muted}>Loading…</Text>}
+          {auditLogs && auditLogs.length === 0 && (
+            <Text style={portalStyles.muted}>No AI Gateway activity yet.</Text>
+          )}
+          {auditLogs?.map((log) => (
+            <View key={log.id} style={portalStyles.card}>
+              <Text style={{ fontWeight: '600' }}>
+                {log.prompt_key} — {log.tier} / {log.provider}
+                {log.model ? ` / ${log.model}` : ''} — {log.status}
+              </Text>
+              <Text style={portalStyles.muted}>{new Date(log.created_at).toLocaleString()}</Text>
+              <Text>{truncateOutput(log.output)}</Text>
+            </View>
+          ))}
+        </View>
+      )}
     </ScrollView>
   );
 }
