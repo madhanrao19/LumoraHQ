@@ -3,7 +3,9 @@
 namespace App\AiGateway;
 
 use App\AiGateway\Contracts\AiProvider;
+use App\AiGateway\Providers\ClaudeProvider;
 use App\AiGateway\Providers\NullAiProvider;
+use App\AiGateway\Providers\OpenAiProvider;
 use App\Enums\AiTier;
 use App\Models\AiGatewayLog;
 use App\Models\User;
@@ -24,13 +26,16 @@ class AiGateway
     {
         $prompt = $this->prompts->render($promptKey, $variables);
         $tierConfig = config("ai.tiers.{$tier->value}");
-        $provider = $this->resolveProvider($tierConfig['provider']);
 
         $output = null;
         $status = 'success';
         $error = null;
 
+        // Provider resolution lives inside the try too — a misconfigured
+        // provider (unknown name, missing API key) must still produce an
+        // audit row, not fail silently before logging ever runs.
         try {
+            $provider = $this->resolveProvider($tierConfig['provider']);
             $output = $provider->complete($prompt, $tierConfig['model']);
         } catch (Throwable $e) {
             $status = 'error';
@@ -58,6 +63,8 @@ class AiGateway
     {
         return match ($name) {
             'null' => new NullAiProvider,
+            'openai' => new OpenAiProvider(config('ai.providers.openai.api_key')),
+            'claude' => new ClaudeProvider(config('ai.providers.claude.api_key')),
             default => throw new \InvalidArgumentException("Unknown AI provider [{$name}]"),
         };
     }

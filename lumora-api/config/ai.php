@@ -18,4 +18,16 @@ return [
             'model' => env('AI_SAFETY_MODEL'),
         ],
     ],
+
+    // Credentials for the real providers a tier can select above ('openai',
+    // 'claude'). Unset unless a tier is actually configured to use them —
+    // 'null' (the default) never touches these.
+    'providers' => [
+        'openai' => [
+            'api_key' => env('OPENAI_API_KEY'),
+        ],
+        'claude' => [
+            'api_key' => env('ANTHROPIC_API_KEY'),
+        ],
+    ],
 ];

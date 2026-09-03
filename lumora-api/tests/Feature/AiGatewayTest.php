@@ -33,9 +33,19 @@ test('completing a request logs an audit row via the configured tier provider', 
     $this->assertDatabaseCount('ai_gateway_logs', 1);
 });
 
-test('an unknown provider configuration throws instead of silently succeeding', function () {
+test('an unknown provider configuration throws instead of silently succeeding, and still logs an error row', function () {
     config(['ai.tiers.economical.provider' => 'bogus']);
     $gateway = new AiGateway(new PromptLibrary(base_path('tests/Fixtures/Prompts')));
 
-    $gateway->complete(AiTier::Economical, 'greeting', ['name' => 'Ada']);
-})->throws(InvalidArgumentException::class);
+    try {
+        $gateway->complete(AiTier::Economical, 'greeting', ['name' => 'Ada']);
+        $this->fail('Expected a RuntimeException.');
+    } catch (RuntimeException $e) {
+        expect($e->getPrevious())->toBeInstanceOf(InvalidArgumentException::class);
+    }
+
+    $log = AiGatewayLog::first();
+    expect($log->status)->toBe('error');
+    expect($log->provider)->toBe('bogus');
+    expect($log->output)->toBeNull();
+});
