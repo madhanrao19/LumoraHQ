@@ -5,10 +5,13 @@ namespace App\AiGateway\Agents;
 use App\AiGateway\AiGateway;
 use App\Enums\AiTier;
 use App\Enums\TutorOutcome;
+use App\Enums\UserRole;
 use App\Models\Lesson;
 use App\Models\RagDocument;
 use App\Models\TutorMessage;
 use App\Models\User;
+use App\Notifications\TutorEscalationRaised;
+use Illuminate\Support\Facades\Notification;
 
 // The AI Tutor: RAG-grounded scope (ADR-0028) and synchronous safety
 // classification with graduated outcomes (ADR-0023). Every turn is recorded
@@ -90,11 +93,29 @@ class TutorAgent
 
     private function record(User $student, string $question, string $answer, TutorOutcome $outcome): TutorMessage
     {
-        return TutorMessage::create([
+        $message = TutorMessage::create([
             'user_id' => $student->id,
             'question' => $question,
             'answer' => $answer,
             'outcome' => $outcome,
         ]);
+
+        if ($outcome === TutorOutcome::Escalate) {
+            $this->notifyEscalation($student, $message);
+        }
+
+        return $message;
+    }
+
+    /**
+     * ADR-0023: an Escalate outcome must be flagged for human/parent/staff
+     * review "in addition to" the response already given — a row sitting in
+     * an audit view nobody's polling doesn't satisfy that on its own.
+     */
+    private function notifyEscalation(User $student, TutorMessage $message): void
+    {
+        $recipients = $student->parents->merge(User::where('role', UserRole::Admin)->get());
+
+        Notification::send($recipients, new TutorEscalationRaised($message));
     }
 }
