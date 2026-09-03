@@ -7,6 +7,12 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Continuous Integration
+
+`.github/workflows/lumora-api.yml` (repo root) runs Pint (`--test`) and the
+Pest suite on every push/PR touching this directory. Tests run against
+SQLite in-memory (`phpunit.xml`), so no database service is needed in CI.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

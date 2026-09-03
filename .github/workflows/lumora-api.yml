@@ -1,0 +1,42 @@
+name: lumora-api CI
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'lumora-api/**' ]
+  pull_request:
+    branches: [ main ]
+    paths: [ 'lumora-api/**' ]
+  workflow_dispatch: {}
+
+defaults:
+  run:
+    working-directory: lumora-api
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, pdo_sqlite, pgsql, pdo_pgsql
+          coverage: none
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache/files
+          key: composer-${{ hashFiles('lumora-api/composer.lock') }}
+
+      - run: composer install --no-interaction --prefer-dist
+
+      - run: cp .env.example .env
+      - run: php artisan key:generate
+
+      - name: Pint (format check)
+        run: vendor/bin/pint --test
+
+      - name: Pest
+        run: php artisan test --compact
