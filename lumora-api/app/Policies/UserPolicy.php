@@ -38,6 +38,27 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user can view the model's AI Gateway audit log.
+     *
+     * Deliberately narrower than view(): Admins can view any student's log,
+     * and Parents only their own linked students', but a Student can never
+     * view their own — ADR-0021 treats the audit log as an oversight
+     * mechanism, not a self-service chat-history feature.
+     */
+    public function viewAuditLog(User $user, User $model): bool
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        if ($user->isParent() && $model->isStudent()) {
+            return $user->students()->whereKey($model->id)->exists();
+        }
+
+        return false;
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool

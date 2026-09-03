@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AiGatewayLogController;
 use App\Http\Controllers\Api\V1\AssessmentAttemptController;
 use App\Http\Controllers\Api\V1\AssessmentController;
 use App\Http\Controllers\Api\V1\AuthController;
@@ -33,6 +34,7 @@ Route::prefix('v1')->group(function () {
         Route::get('students/{student}/progress', [StudentProgressController::class, 'lessonProgress']);
         Route::get('students/{student}/attempts', [StudentProgressController::class, 'assessmentAttempts']);
         Route::get('students/{student}/tutor-messages', [TutorController::class, 'index']);
+        Route::get('students/{student}/audit-logs', [AiGatewayLogController::class, 'index']);
 
         Route::post('tutor/ask', [TutorController::class, 'ask']);
 
