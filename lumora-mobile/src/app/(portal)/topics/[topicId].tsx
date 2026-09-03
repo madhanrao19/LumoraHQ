@@ -4,25 +4,28 @@ import { useEffect, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
 import { portalStyles } from '@/constants/portal-styles';
-import { apiFetch } from '@/lib/api';
+import { apiFetchCached } from '@/lib/api';
 import type { ApiCollection, Assessment, Lesson } from '@/lib/types';
 
 export default function TopicScreen() {
   const { topicId } = useLocalSearchParams<{ topicId: string }>();
   const [lessons, setLessons] = useState<Lesson[] | null>(null);
   const [assessments, setAssessments] = useState<Assessment[] | null>(null);
+  const [stale, setStale] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     Promise.all([
-      apiFetch<ApiCollection<Lesson>>(`/api/v1/topics/${topicId}/lessons`, { auth: false }),
-      apiFetch<ApiCollection<Assessment>>(`/api/v1/topics/${topicId}/assessments`, {
-        auth: false,
-      }),
+      apiFetchCached<ApiCollection<Lesson>>(`/api/v1/topics/${topicId}/lessons`, `lessons-${topicId}`),
+      apiFetchCached<ApiCollection<Assessment>>(
+        `/api/v1/topics/${topicId}/assessments`,
+        `assessments-${topicId}`,
+      ),
     ])
       .then(([lessonsRes, assessmentsRes]) => {
-        setLessons(lessonsRes.data);
-        setAssessments(assessmentsRes.data);
+        setLessons(lessonsRes.data.data);
+        setAssessments(assessmentsRes.data.data);
+        setStale(lessonsRes.stale || assessmentsRes.stale);
       })
       .catch(() => setError("Could not load this topic's content."));
   }, [topicId]);
@@ -37,6 +40,9 @@ export default function TopicScreen() {
       <Link href="/subjects" style={portalStyles.back}>
         ← Subjects
       </Link>
+      {stale && (
+        <Text style={portalStyles.muted}>You&apos;re offline — showing saved content.</Text>
+      )}
 
       <View style={portalStyles.container}>
         <Text style={portalStyles.heading}>Lessons</Text>

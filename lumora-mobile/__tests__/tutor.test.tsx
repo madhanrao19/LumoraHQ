@@ -8,6 +8,11 @@ jest.mock('expo-router', () => ({
     require('react').createElement(require('react-native').Text, props, children),
 }));
 
+const mockUseNetworkState = jest.fn();
+jest.mock('expo-network', () => ({
+  useNetworkState: () => mockUseNetworkState(),
+}));
+
 const mockUseAuth = jest.fn();
 jest.mock('@/lib/auth-context', () => ({
   useAuth: () => mockUseAuth(),
@@ -27,6 +32,7 @@ beforeEach(() => {
   mockUseAuth.mockReturnValue({
     user: { id: 7, name: 'Stu Dent', email: 'stu@example.com', role: 'student' },
   });
+  mockUseNetworkState.mockReturnValue({ isConnected: true });
 });
 
 test('loads history in chronological order and appends a sent turn', async () => {
@@ -84,6 +90,19 @@ test('shows a load error', async () => {
   await render(<TutorScreen />);
 
   expect(await screen.findByText('Could not load your Tutor conversation.')).toBeTruthy();
+});
+
+// ADR-0026: the Tutor requires connectivity and must degrade explicitly
+// rather than attempting an offline AI fallback.
+test('shows an explicit offline message and hides the composer when disconnected', async () => {
+  mockUseNetworkState.mockReturnValue({ isConnected: false });
+  mockedApiFetch.mockResolvedValueOnce({ data: [] }); // GET tutor-messages
+
+  await render(<TutorScreen />);
+
+  expect(await screen.findByTestId('tutor-offline')).toBeTruthy();
+  expect(screen.queryByTestId('tutor-question')).toBeNull();
+  expect(screen.queryByTestId('tutor-send')).toBeNull();
 });
 
 test('shows the role-gated message for a non-student', async () => {

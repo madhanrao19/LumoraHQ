@@ -4,6 +4,7 @@
 // substituted the safe fallback text for any non-Pass outcome before it
 // reaches this response. `outcome` is display-only (a small badge below),
 // never a signal to alter what text is shown.
+import * as Network from 'expo-network';
 import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
@@ -32,6 +33,14 @@ export default function TutorScreen() {
   const [question, setQuestion] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
+
+  // ADR-0026: the Tutor requires connectivity and must degrade explicitly
+  // ("you're offline" messaging), never attempt an offline AI fallback. Only
+  // block on a *confirmed* disconnect (isConnected === false) — while the
+  // check is still resolving (undefined on first render) or connection type
+  // is merely unknown, don't false-positive-block an actually-online user.
+  const networkState = Network.useNetworkState();
+  const offline = networkState.isConnected === false;
 
   useEffect(() => {
     if (user?.role !== 'student') return;
@@ -84,26 +93,33 @@ export default function TutorScreen() {
 
       {error && <Text style={portalStyles.error}>{error}</Text>}
 
-      <View style={styles.composer}>
-        <View style={styles.input}>
-          <FormField
-            testID="tutor-question"
-            label="Ask a question"
-            value={question}
-            onChangeText={setQuestion}
-            maxLength={QUESTION_MAX_LENGTH}
-            placeholder="Ask a question…"
-          />
+      {offline ? (
+        <Text testID="tutor-offline" style={portalStyles.muted}>
+          You&apos;re offline — the Tutor needs an internet connection to answer. Your saved
+          conversation is still shown above.
+        </Text>
+      ) : (
+        <View style={styles.composer}>
+          <View style={styles.input}>
+            <FormField
+              testID="tutor-question"
+              label="Ask a question"
+              value={question}
+              onChangeText={setQuestion}
+              maxLength={QUESTION_MAX_LENGTH}
+              placeholder="Ask a question…"
+            />
+          </View>
+          <Pressable
+            testID="tutor-send"
+            onPress={submit}
+            disabled={sending || !question.trim()}
+            style={[portalStyles.button, (sending || !question.trim()) && portalStyles.buttonDisabled]}
+          >
+            <Text style={portalStyles.buttonText}>{sending ? 'Sending…' : 'Send'}</Text>
+          </Pressable>
         </View>
-        <Pressable
-          testID="tutor-send"
-          onPress={submit}
-          disabled={sending || !question.trim()}
-          style={[portalStyles.button, (sending || !question.trim()) && portalStyles.buttonDisabled]}
-        >
-          <Text style={portalStyles.buttonText}>{sending ? 'Sending…' : 'Send'}</Text>
-        </Pressable>
-      </View>
+      )}
     </ScrollView>
   );
 }

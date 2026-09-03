@@ -8,36 +8,52 @@ jest.mock('expo-router', () => ({
 }));
 
 jest.mock('@/lib/api', () => ({
-  apiFetch: jest.fn(),
+  apiFetchCached: jest.fn(),
 }));
 
-import { apiFetch } from '@/lib/api';
+import { apiFetchCached } from '@/lib/api';
 
-const mockedApiFetch = apiFetch as jest.Mock;
+const mockedApiFetchCached = apiFetchCached as jest.Mock;
 
 beforeEach(() => {
-  mockedApiFetch.mockReset();
+  mockedApiFetchCached.mockReset();
 });
 
 test('renders fetched subjects', async () => {
-  mockedApiFetch.mockResolvedValueOnce({
-    data: [
-      { id: 1, name: 'Mathematics', slug: 'maths', order: 1 },
-      { id: 2, name: 'Science', slug: 'science', order: 2 },
-    ],
+  mockedApiFetchCached.mockResolvedValueOnce({
+    data: {
+      data: [
+        { id: 1, name: 'Mathematics', slug: 'maths', order: 1 },
+        { id: 2, name: 'Science', slug: 'science', order: 2 },
+      ],
+    },
+    stale: false,
   });
 
   await render(<SubjectsScreen />);
 
   expect(await screen.findByText('Mathematics')).toBeTruthy();
   expect(screen.getByText('Science')).toBeTruthy();
-  expect(mockedApiFetch).toHaveBeenCalledWith('/api/v1/subjects', { auth: false });
+  expect(mockedApiFetchCached).toHaveBeenCalledWith('/api/v1/subjects', 'subjects');
+  expect(screen.queryByText(/offline/i)).toBeNull();
 });
 
-test('shows an error message when the fetch fails', async () => {
-  mockedApiFetch.mockRejectedValueOnce(new Error('network down'));
+test('shows an error message when the fetch fails and no cache exists', async () => {
+  mockedApiFetchCached.mockRejectedValueOnce(new Error('network down'));
 
   await render(<SubjectsScreen />);
 
   expect(await screen.findByText('Could not load subjects.')).toBeTruthy();
+});
+
+test('shows an offline banner when serving cached (stale) subjects', async () => {
+  mockedApiFetchCached.mockResolvedValueOnce({
+    data: { data: [{ id: 1, name: 'Mathematics', slug: 'maths', order: 1 }] },
+    stale: true,
+  });
+
+  await render(<SubjectsScreen />);
+
+  expect(await screen.findByText('Mathematics')).toBeTruthy();
+  expect(screen.getByText(/offline/i)).toBeTruthy();
 });
