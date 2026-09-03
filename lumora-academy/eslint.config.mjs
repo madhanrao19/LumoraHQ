@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // e2e/global-setup.ts builds a throwaway production instance into its
+    // own dist dir (see next.config.ts) so it doesn't collide with a `next
+    // dev` instance's cache — that compiled output isn't source, same as
+    // .next/**.
+    ".next-e2e/**",
   ]),
 ]);
 
