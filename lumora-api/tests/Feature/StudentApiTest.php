@@ -77,7 +77,10 @@ test('an attempt is scored against published questions and only the student sees
             'responses' => [$question->id => 'A'],
         ])
         ->assertCreated()
-        ->assertJsonPath('data.score', 100);
+        ->assertJsonPath('data.score', 100)
+        // Regression: `responses` must stay keyed by question ID on the
+        // wire, not silently reindexed into a positional JSON array.
+        ->assertJsonPath("data.responses.{$question->id}", 'A');
 
     $this->actingAs($otherStudent, 'sanctum')
         ->postJson("/api/v1/assessments/{$assessment->id}/attempts", [
