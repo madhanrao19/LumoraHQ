@@ -5,6 +5,7 @@
 // form POSTs) don't justify a new dependency.
 
 import * as SecureStore from "expo-secure-store";
+import { cacheGet, cacheSet } from "./offline-cache";
 
 const API_BASE_URL =
   process.env.EXPO_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
@@ -80,4 +81,26 @@ export async function apiFetch<T>(
   }
 
   return json as T;
+}
+
+// Read-through cache for the curriculum screens ADR-0026 requires stay
+// viewable offline (subjects/topics/lessons/assessments) — NOT used for
+// mutations (progress/attempts/tutor) or anything else, since serving a
+// stale response to a POST would be actively wrong, not a nicety.
+// `stale: true` tells the caller the real request failed and this is a
+// cached fallback, so the screen can show that honestly rather than
+// silently pretending it's live data.
+export async function apiFetchCached<T>(
+  path: string,
+  cacheKey: string,
+): Promise<{ data: T; stale: boolean }> {
+  try {
+    const data = await apiFetch<T>(path, { auth: false });
+    await cacheSet(cacheKey, data);
+    return { data, stale: false };
+  } catch (err) {
+    const cached = await cacheGet<T>(cacheKey);
+    if (cached !== null) return { data: cached, stale: true };
+    throw err;
+  }
 }

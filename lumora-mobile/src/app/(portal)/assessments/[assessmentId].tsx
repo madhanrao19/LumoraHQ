@@ -6,7 +6,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { FormField } from '@/components/form-field';
 import { Zinc } from '@/constants/colors';
 import { portalStyles } from '@/constants/portal-styles';
-import { ApiError, apiFetch } from '@/lib/api';
+import { ApiError, apiFetch, apiFetchCached } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
 import type { ApiCollection, ApiResource, Assessment, AssessmentAttempt } from '@/lib/types';
 
@@ -14,6 +14,7 @@ export default function AssessmentScreen() {
   const { assessmentId } = useLocalSearchParams<{ assessmentId: string }>();
   const { user } = useAuth();
   const [assessment, setAssessment] = useState<Assessment | null>(null);
+  const [stale, setStale] = useState(false);
   const [attempts, setAttempts] = useState<AssessmentAttempt[]>([]);
   const [responses, setResponses] = useState<Record<number, string>>({});
   const [result, setResult] = useState<AssessmentAttempt | null>(null);
@@ -21,8 +22,14 @@ export default function AssessmentScreen() {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    apiFetch<ApiResource<Assessment>>(`/api/v1/assessments/${assessmentId}`, { auth: false })
-      .then((res) => setAssessment(res.data))
+    apiFetchCached<ApiResource<Assessment>>(
+      `/api/v1/assessments/${assessmentId}`,
+      `assessment-${assessmentId}`,
+    )
+      .then((res) => {
+        setAssessment(res.data.data);
+        setStale(res.stale);
+      })
       .catch(() => setError('Could not load this assessment.'));
   }, [assessmentId]);
 
@@ -64,6 +71,9 @@ export default function AssessmentScreen() {
       <Link href={`/topics/${assessment.topic_id}`} style={portalStyles.back}>
         ← Back to topic
       </Link>
+      {stale && (
+        <Text style={portalStyles.muted}>You&apos;re offline — showing saved content.</Text>
+      )}
 
       <Text style={portalStyles.heading}>{assessment.title}</Text>
 
