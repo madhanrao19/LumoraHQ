@@ -10,6 +10,7 @@ import { Link, Redirect, Stack, useRouter } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { Zinc } from '@/constants/colors';
 import { useAuth } from '@/lib/auth-context';
 
 export default function PortalLayout() {
@@ -66,7 +67,7 @@ export default function PortalLayout() {
 const styles = StyleSheet.create({
   flex: { flex: 1 },
   loading: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  muted: { color: '#71717a' },
+  muted: { color: Zinc[500] },
   nav: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#e4e4e7',
+    borderBottomColor: Zinc[200],
     flexWrap: 'wrap',
     gap: 8,
   },
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
   navLink: { textDecorationLine: 'underline' },
   logoutButton: {
     borderWidth: 1,
-    borderColor: '#d4d4d8',
+    borderColor: Zinc[300],
     borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 4,

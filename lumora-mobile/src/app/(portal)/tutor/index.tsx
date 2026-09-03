@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { FormField } from '@/components/form-field';
+import { Amber } from '@/constants/colors';
 import { portalStyles } from '@/constants/portal-styles';
 import { ApiError, apiFetch } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
@@ -113,12 +114,12 @@ const styles = StyleSheet.create({
   answerRow: { alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center', gap: 6 },
   answer: { flexShrink: 1 },
   badge: {
-    backgroundColor: '#fef3c7',
+    backgroundColor: Amber[100],
     borderRadius: 4,
     paddingHorizontal: 6,
     paddingVertical: 2,
   },
-  badgeText: { color: '#92400e', fontSize: 12 },
+  badgeText: { color: Amber[800], fontSize: 12 },
   composer: { flexDirection: 'row', alignItems: 'flex-end', gap: 8 },
   input: { flex: 1 },
 });

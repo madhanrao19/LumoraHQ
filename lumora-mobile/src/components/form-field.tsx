@@ -2,6 +2,7 @@
 // (login/register/add-student forms) — extracted once since the RN forms
 // repeat it verbatim too.
 import { StyleSheet, Text, TextInput, View, type TextInputProps } from "react-native";
+import { Red, Zinc } from "@/constants/colors";
 
 type FormFieldProps = TextInputProps & {
   label: string;
@@ -27,10 +28,10 @@ const styles = StyleSheet.create({
   label: { fontSize: 14 },
   input: {
     borderWidth: 1,
-    borderColor: "#d4d4d8",
+    borderColor: Zinc[300],
     borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 8,
   },
-  error: { color: "#dc2626", fontSize: 13 },
+  error: { color: Red[600], fontSize: 13 },
 });
