@@ -11,11 +11,11 @@ source of truth) plus scaffolding for each application and service.
 | Directory | Status | Purpose |
 |---|---|---|
 | [`lumora-docs/`](lumora-docs/) | ✅ Populated | Single source of truth — MkDocs Material site covering vision, strategy, architecture, curriculum, ADRs, playbooks, and runbooks. |
-| [`lumora-api/`](lumora-api/) | 🟢 Scaffolded | Laravel backend API. |
-| [`lumora-academy/`](lumora-academy/) | 🟢 Scaffolded | Student/parent learning portal — Next.js + React. |
+| [`lumora-api/`](lumora-api/) | ✅ Populated | Laravel backend API — curriculum, lesson, question, and assessment engines; AI Gateway with tiered routing and full audit logging; AI Tutor with real-time safety classification (ADR-0023) and RAG-grounded scope (ADR-0028); Admin portal via Filament (content lifecycle, read-only audit-log resource). 68 Pest tests passing. |
+| [`lumora-academy/`](lumora-academy/) | ✅ Populated | Student/parent learning portal — Next.js + React. Auth, curriculum browsing, lesson completion, assessment-taking, AI Tutor chat; Parent-facing student management, progress/attempts, Tutor conversation, and AI Gateway audit-log oversight. |
 | [`lumora-ai/`](lumora-ai/) | 🟡 Placeholder | Purpose not yet assigned — the AI Gateway (OpenAI/Claude provider abstraction) lives in `lumora-api`, not here (ADR-0015, ADR-0016). |
 | [`lumora-design-system/`](lumora-design-system/) | 🟡 Placeholder | Shared UI components and design tokens. |
-| [`lumora-mobile/`](lumora-mobile/) | 🟢 Scaffolded | Mobile application — React Native + Expo. |
+| [`lumora-mobile/`](lumora-mobile/) | ✅ Populated | Mobile application — React Native + Expo. Same feature set as `lumora-academy` (student/parent portal), ported to native conventions (ADR-0026). |
 | [`lumora-knowledge/`](lumora-knowledge/) | 🟡 Placeholder | Curriculum content and knowledge base data. |
 | [`lumora-infrastructure/`](lumora-infrastructure/) | 🟢 Scaffolded | Azure Bicep for App Service, Key Vault, PostgreSQL, and Redis — compiles clean with `az bicep build`, not yet deployed to a real subscription. |
 | [`lumora-labs/`](lumora-labs/) | 🟡 Placeholder | Experiments and prototypes. |
